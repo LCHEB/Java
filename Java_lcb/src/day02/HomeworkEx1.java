@@ -21,20 +21,6 @@ public class HomeworkEx1 {
 			System.out.println("잘못된 점수입니다.");
 		}else if(score < 60) {
 			System.out.println("F");
-		}else if(score >= 60 && score < 70) {
-			System.out.println("D");
-		}else if(score >= 70 && score < 80) {
-			System.out.println("C");
-		}else if(score >= 80 && score < 90) {
-			System.out.println("B");
-		}else {
-			System.out.println("A");
-		}
-			
-		if(score < 0 || score > 100) {
-			System.out.println("잘못된 점수입니다.");
-		}else if(score < 60) {
-			System.out.println("F");
 		}else if(score < 70) {
 			System.out.println("D");
 		}else if(score < 80) {
