@@ -44,7 +44,7 @@ public class HomeworkEx1 {
 		}else {
 			System.out.println("A");
 		}
-		
+		scan.close();
 	}
 
 }
