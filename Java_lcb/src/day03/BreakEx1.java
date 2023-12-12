@@ -19,7 +19,7 @@ public class BreakEx1 {
 		}
 		
 		
-		//scan.close();
+		scan.close();
 		
 		
 		
