@@ -1,5 +1,6 @@
 package day06;
 
+import java.util.Arrays;
 import java.util.Scanner;
 
 public class HomeworkEx1 {
@@ -29,65 +30,88 @@ public class HomeworkEx1 {
 		
 		// 1 ~ 9 사이의 중복되지 않은 3개의 수 생성
 		Scanner scan = new Scanner(System.in);
-		int input[] = new int[3];
-		int strike = 0;
-		int ball = 0;
-		int out = 0;
-		int min = 1, max = 9;
-		
-		
-		int arr[] = new int[3];
-		int count = 0;
-		
-		while(count < 3) {
+			//컴퓨터가 랜덤으로 중복되지 않은 숫자 3개를 생성(1~9)
+			int min = 1, max = 9;
+			int com[] = new int[3];
+			int count = 0;
 			
-			int r =(int)(Math.random() * (max - min + 1) + min);
-			
-			boolean duplicated = false; 
-			for(int i = 0; i < count; i++) {
-				if(arr[i] == r) {
-					duplicated = true;
-					break;
-				}
-			}
-			
-			if(!duplicated) {
-				arr[count] = r;
-				count++;
-			}
-		}
-		for(int i = 0; i < arr.length; i++) {
-			System.out.print(arr[i] + " ");
-		}
-		
-		
-		while(true) {
-			for(int i = 0; i < input.length; i++){
-				System.out.print("입력 : ");
-				input[i] = scan.nextInt();
-			}
-			for(int i = 0; i < arr.length; i++) {
-				for(int j = 0; j < input.length; j++) {
-					if(arr[i] == input[j] && i == j) {
-						strike++;
-					}else if(arr[i] == input[j] && i != j) {
-						ball++;
+			//랜덤으로 중복되지 않은 3개의 수를 생성
+			while(count < com.length) {
+				//랜덤한 수 생성
+				int r = (int)(Math.random() * (max - min + 1) + min);
+				
+				//중복 확인
+				int i;
+				for(i = 0; i<count; i++) {
+					if(com[i] == r) {
+						break;
 					}
 				}
+				//중복되지 않으면 저장 후 count증가
+				if(i == count) {
+					com[count++] = r;
+				}
 			}
-			System.out.println("결과 : " + strike + "S" + ball + "B");
-			if(strike == 3) {
-				System.out.print("정답입니다."); 
+			
+			//출력
+			for(int i = 0; i<com.length; i++) {
+				System.out.print(com[i] + " ");
 			}
-			strike = 0;
-			ball = 0;
+			System.out.println();
+			//반복문 : 맞출때까지 => 스트라이크의 개수가 3개 미만인 경우 반복
+			int strike, ball;
+			int user [] = new int[com.length];
+			do {
+				//중복되지 않은 숫자 3개를 입력
+				count = 0;
+				System.out.print("입력 : ");
+				while(count < user.length) {
+					int input = scan.nextInt();
+					int i;
+					for(i = 0; i<count; i++) {
+						if(user[i] == input) {
+							break;
+						}
+					}
+					//중복되지 않으면 저장 후 count증가
+					if(i == count) {
+						user[count++] = input;
+					}
+				}
+				//스트라이크와 볼의 개수를 계산
+				strike = 0;
+				ball = 0;
+				for(int i = 0; i < com.length; i++) {
+					for(int j = 0; j < user.length; j++) {
+						if(com[i] == user[j]){
+							if(i == j) {
+								strike++;
+							}else {
+								ball++;
+							}
+						}
+					}
+				}
+				//스트라이크와 볼의 개수에 따른 결과를 출력
+				if(strike != 0) {
+					System.out.print(strike + "S");
+				}
+				if(ball != 0) {
+					System.out.print(ball + "B");
+				}
+				if(strike == 0 && ball == 0) {
+					System.out.println("O");
+				}
+				System.out.println();
+			}while(strike < 3);
+			//정답 출력
+			System.out.println("정답!");
+			scan.close();
+			
 		}
-		// 수 입력
 		
-		// 결과 정답 오답 체크
 		
-		// 결과 출력
 		
 	}
 
-}
+
