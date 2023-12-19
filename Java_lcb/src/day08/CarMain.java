@@ -1,5 +1,6 @@
 package day08;
 
+import java.nio.charset.CoderResult;
 import java.util.Scanner;
 
 public class CarMain {
@@ -36,5 +37,5 @@ public class CarMain {
 		}
 		car.print();
 	}
-
+	
 }
