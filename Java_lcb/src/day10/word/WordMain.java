@@ -97,7 +97,7 @@ public class WordMain {
 			break;
 		case 2:
 			//단어 등록 기능을 구현
-			intsertWord();
+			insertWord();
 			break;
 		case 3:
 			System.out.println("프로그램 종료");
@@ -139,7 +139,7 @@ public class WordMain {
 		//삭제할 단어 번호를 입력
 		System.out.println("삭제할 단어 번호 : ");
 		int num = scan.nextInt();
-		//반복문 : 게시글 목록 전체
+		//반복문 : 단어 목록 전체
 		int index = -1; //일치하는 게시글이 있는 번지
 		for(int i = 0; i < count ; i++) {
 			//입력한 번호와 일치하는 게시글을 찾아 번지를 저장
@@ -225,7 +225,7 @@ public class WordMain {
 	/**단어 정보를 받아 단어를 등록하는 메서드
 	 * 
 	 */
-	private static void intsertWord() {
+	private static void insertWord() {
 		scan.nextLine(); //입력 버퍼에 남아있는 엔터 처리
 		//단어, 뜻 순으로 입력받음
 		System.out.print("단어 : ");
