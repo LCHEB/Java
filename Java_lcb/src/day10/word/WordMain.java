@@ -132,7 +132,7 @@ public class WordMain {
 			System.out.println("잘못된 메뉴입니다.");
 		}
 	}
-	/**삭제할 게시글 번호를 입력받아 게시글을 삭제하는 메서드
+	/**삭제할 단어 번호를 입력받아 단어를 삭제하는 메서드
 	 * 
 	 */
 	private static void deleteWord() {
@@ -186,6 +186,9 @@ public class WordMain {
 				
 		
 	}
+	/**수정할 단어 번호와 단어, 뜻을 입력받아 단어를 수정하는 메서드
+	 * 
+	 */
 	private static void updateWord() {
 		//수정할 단어 번호와 단어, 뜻을 입력
 		System.out.print("검색할 단어 번호 : ");
