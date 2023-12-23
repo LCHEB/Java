@@ -1,7 +1,9 @@
 package day11.homework;
 
-public class Homework1 {
+import java.util.Scanner;
 
+public class Homework1 {
+	private static Scanner scan = new Scanner(System.in);
 	public static void main(String[] args) {
 		/* 고등 학생 성적을 관리하는 프로그램을 작성하세요.
 		 * 메뉴
@@ -21,6 +23,49 @@ public class Homework1 {
 		 * 	- 어려운 버전 : 과목명, 성적(중간, 기말, 수행평가, 총점) 
 		 */
 		
+		int menu;
+		
+		do {
+			printmenu();
+			
+			menu = scan.nextInt();
+			
+			runMenu(menu);
+		}while(menu != 3);
+		
+	}
+	private static void runMenu(int menu) {
+		switch(menu) {
+		case 1:
+			student();
+			break;
+		case 2:
+			subject();
+			break;
+		case 3:
+			System.out.println("프로그램을 종료합니다.");
+			break;
+		default:
+			System.out.println("잘못된 메뉴입니다.");
+		}
+		
+	}
+	private static void subject() {
+		System.out.println("1. 성적 추가");
+		System.out.println("2. 성적 수정");
+		System.out.println("3. 성적 삭제");
+	}
+	private static void student() {
+		System.out.println("1. 학생 추가");
+		System.out.println("2. 학생 수정");
+		System.out.println("3. 학생 삭제");
+	}
+	private static void printmenu() {
+		System.out.println("메뉴");
+		System.out.println("1. 학생 관리");
+		System.out.println("2. 성적 관리");
+		System.out.println("3. 프로그램 종료");
+		System.out.println("메뉴 선택 : ");
 	}
 
 }
