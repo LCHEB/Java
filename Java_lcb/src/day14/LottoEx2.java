@@ -1,6 +1,8 @@
 package day14;
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Scanner;
 import java.util.Set;
 
@@ -19,19 +21,16 @@ public class LottoEx2 {
 		int min = 1, max = 45;
 
 		//로또 당첨번호 6개를 랜덤으로 생성(중복 X)
-		while(lotto.size() < 6) {
+		while(lotto.size() < 7) {
 			int tmp = (int)(Math.random() * (max - min + 1) + min);
 			lotto.add(tmp);
 		}
 		//보너스 번호를 생성
-		while(true) {
-			bonus = (int)(Math.random() * (max - min + 1) + min);
-			//보너스 번호가 당첨 번호와 일치하지 않으면
-			if(!lotto.contains(bonus)) {
-				break;
-			}
-		}
-		System.out.println(lotto + ", 보너스 : " + bonus);
+		List<Integer> lotto2 = new ArrayList<Integer>();
+		lotto2.addAll(lotto);
+		bonus = lotto2.remove(lotto2.size() - 1);
+
+		System.out.println(lotto2 + ", 보너스 : " + bonus);
 
 		//사용자가 당첨 번호를 입력
 		Scanner scan = new Scanner(System.in);
@@ -44,7 +43,7 @@ public class LottoEx2 {
 		//일치하는 개수 계산
 		int count = 0;
 		for(int tmp: user) {
-			if(lotto.contains(tmp)) {
+			if(lotto2.contains(tmp)) {
 				count++;
 			}
 		}
