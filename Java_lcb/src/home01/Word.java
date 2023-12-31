@@ -1,0 +1,12 @@
+package home01;
+
+import lombok.AllArgsConstructor;
+import lombok.Data;
+
+@Data
+@AllArgsConstructor
+public class Word {
+	private String word;
+	private String mean;
+	
+}
