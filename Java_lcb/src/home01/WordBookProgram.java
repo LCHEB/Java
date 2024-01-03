@@ -9,9 +9,8 @@ public class WordBookProgram implements WordBook {
 
 	private static Scanner scan = new Scanner(System.in);
 	private static HashMap<String, ArrayList<String>> map = new HashMap<String, ArrayList<String>>();
-
+	
 	private static int indexOf(String mean) {
-		// TODO Auto-generated method stub
 		return 0;
 	}
 
@@ -25,7 +24,7 @@ public class WordBookProgram implements WordBook {
 			try {
 				//메뉴 선택
 				menu = scan.nextInt();
-				//메뉼 실행
+				//메뉴 실행
 				runMenu(menu);
 			}catch(InputMismatchException e) {
 				System.out.println("잘못된 메뉴입니다.");
@@ -59,9 +58,10 @@ public class WordBookProgram implements WordBook {
 			System.out.print("추가할 단어 : ");
 			String word = scan.next();
 			if(map.containsKey(word)){
-				System.out.println("이미 있는 단어");
+				System.out.println("이미 있는 단어입니다.");
 			}else {
 				map.put(word, list);
+				System.out.println("추가했습니다.");
 			}
 			break;
 		case 2:
@@ -72,6 +72,7 @@ public class WordBookProgram implements WordBook {
 				System.out.print(word + " >> (단어수정) : ");
 				String chWord = scan.next();
 				map.put(chWord, map.remove(word));
+				 System.out.println("단어를 수정했습니다.");
 			}else {
 				System.out.println("없는 단어 입니다.");
 			}
@@ -82,6 +83,7 @@ public class WordBookProgram implements WordBook {
 			word = scan.next();
 			if(map.containsKey(word)){
 				map.remove(word);
+				System.out.println("단어를 삭제 했습니다.");
 			}else {
 				System.out.println("없는 단어 입니다.");
 			}
@@ -94,8 +96,9 @@ public class WordBookProgram implements WordBook {
 				System.out.print("추가할 뜻 : ");
 				String mean = scan.next();
 				map.get(word).add(mean);
+				System.out.println("뜻을 추가 했습니다.");
 			}else {
-				System.out.println("없는 단어");
+				System.out.println("없는 단어입니다.");
 			}
 			break;
 		case 5:
@@ -110,10 +113,10 @@ public class WordBookProgram implements WordBook {
 					String mean2 = scan.next();
 					map.get(word).remove(mean);
 					map.get(word).add(mean2);
-					System.out.println("수정이 완료됐습니다.");
+					System.out.println("뜻을 수정 했습니다.");
 				}
 			}else {
-				System.out.println("없는 단어");
+				System.out.println("없는 단어입니다.");
 			}
 			break;
 		case 6:
@@ -129,12 +132,12 @@ public class WordBookProgram implements WordBook {
 					System.out.println("뜻이 없습니다.");
 				}
 			}else {
-				System.out.println("없는 단어");
+				System.out.println("없는 단어입니다.");
 			}
 			break;
 		case 7:
 			//조회
-			System.out.println(map);
+				System.out.println(map);
 			break;
 		case 8:
 			//종료
