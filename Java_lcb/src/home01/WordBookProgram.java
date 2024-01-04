@@ -115,9 +115,8 @@ public class WordBookProgram implements WordBook {
 					map.get(word).add(mean2);
 					System.out.println("뜻을 수정 했습니다.");
 				}
-			}else {
-				System.out.println("없는 단어입니다.");
 			}
+			
 			break;
 		case 6:
 			//뜻 삭제
