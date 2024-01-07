@@ -12,7 +12,6 @@ public class AccountBook {
 	String date; //날짜
 	int money,inMon,outMon; //돈, 수입, 지출
 	String use; //내역
-	int totalmon, totalInMon, totalOutMon; //총 잔액, 총 수입, 총 지출
 	
 	@Override
 	public boolean equals(Object obj) {
