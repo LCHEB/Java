@@ -225,7 +225,6 @@ public class AccountBookProgram implements Program {
 			ab.setDate(scan.next());
 			System.out.print("수입 : ");
 			ab.setInMon(scan.nextInt());
-			ab.setOutMon(0);
 			System.out.print("내역 : ");
 			ab.setUse(scan.next());
 			acc.add(ab);
@@ -239,7 +238,6 @@ public class AccountBookProgram implements Program {
 			ab.setDate(scan.next());
 			System.out.print("지출 : ");
 			ab.setOutMon(scan.nextInt());
-			ab.setInMon(0);
 			System.out.print("내역 : ");
 			ab.setUse(scan.next());
 			acc.add(ab);
