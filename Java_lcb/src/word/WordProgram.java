@@ -209,7 +209,7 @@ public class WordProgram implements Program {
 			String userMean = scan.nextLine();
 			//맞았는지 틀렸는지 확인 및 알림
 			//맞았으면 오답에서 제거
-			if(word.equals(userMean)) {
+			if(word.getWord().equals(userMean)) {
 				System.out.println("정답입니다.");
 				win++;
 				wrongList.remove(word);
