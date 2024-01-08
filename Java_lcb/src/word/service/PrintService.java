@@ -7,6 +7,10 @@ public interface PrintService{
 	public void printWordMenu();
 
 	public void printMeanMenu();
+
+	public void printPrintMenu();
+
+	public void printGameMenu();
 		
 	
 	
