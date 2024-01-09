@@ -119,7 +119,7 @@ public class Word implements Serializable{
 		return tmp.get(0).getMean();
 	}
 	public void views() {
-		
+		views++;
 	}
 	public void addMean(List<Mean> newMeanList) {
 		if(meanList == null) {
