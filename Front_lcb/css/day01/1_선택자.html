@@ -107,6 +107,26 @@
          .container2>div:nth-of-type(2n){
             color: red;
          }
+         .container3> .btn::before{
+            content: '앞';
+            display: inline;
+         }
+         .container3> .btn::after{
+            content: '뒤';
+            display: inline;
+         }
+         .container4 li:not(.first){
+            color: red;
+         }
+         /* 요소를 구체적으로 선택하는 선택자
+         - div 태그이고 class 이름이 abc인 요소를 선택하는 선택자
+         - 순서가 중요
+         - 태그선택자가 있으면 무조건 제일 먼저 나와야 함
+         선택자1선택자2선택자3
+         */
+         div.abc{
+            color: red;
+         }
     </style>
 </head>
 <body>
@@ -156,6 +176,21 @@
         <h1>안녕하세요2</h1>
         <div>안녕하세요3</div>
         <h2>안녕하세요4</h2>
+    </div>
+    <hr>
+    <div class="container3">
+        <button class="btn">
+            버튼
+        </button>
+    </div>
+    <hr>
+    <div class="container4">
+        <ul>
+            <li class="first">1</li>
+            <li>2</li>
+            <li>3</li>
+            <li>4</li>
+        </ul>
     </div>
 </body>
 </html>
