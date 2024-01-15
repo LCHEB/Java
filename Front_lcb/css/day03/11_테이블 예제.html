@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>테이블 예제</title>
+    <style>
+        table{
+            width: 100%;
+            border-collapse: collapse;
+            text-align: center;
+            line-height: 30px;
+        }
+        tr{
+            border: 1px solid black; 
+            border-width: 1px 0;
+        }
+        tbody tr:hover{
+            background-color: greenyellow;
+        }
+        
+    </style>
+</head>
+<body>
+    <table>
+        <thead>
+            <tr>
+                <th>번호</th>
+                <th>제목</th>
+                <th>조회수</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>2</td>
+                <td>가입 인사 </td>
+                <td>1</td>
+            </tr>
+            <tr>
+                <td>1</td>
+                <td>공지사항</td>
+            <td>10</td>
+            </tr>
+        </tbody>
+    </table>
+</body>
+</html>

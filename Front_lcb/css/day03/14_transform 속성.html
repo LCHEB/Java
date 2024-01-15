@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>transform 속성</title>
+    <style>
+        /*
+        transform
+         - 다양한 함수들을 이용하여 요소를 변형시키는 속성
+         - 함수
+          - translate??? : 요소를 이동
+          - scale??? : 요소를 비율에 맞춰 크기를 변경
+          - rotate??? : 요소를 기준에 맞게 회전. 실제 요소 크기와 모양이 변경되지 않음.
+                        변경되어 보일순 있음.
+          - skew??? : 요소를 비틀어 모양을 변형  
+
+        perspective
+         - 3D 변환을 적응할 때 원근 효과를 조절할 때 사용하는 속성
+         - 값이 클수록 더 멀리 있는 것처럼 보임, 작을수록 가까이 있는 것처럼 보임
+
+        perspective-origin
+         - 3D 원근에 대한 시점을 조절
+         - x축 ,y축 위치를 지정, 기본은 50%, 50%으로 중심을 의미
+
+        transform-origin
+         - transform 속성을 이용하여 요소를 변혈할 때 기준점을 설정하는 속성
+
+        transform-style
+         - 부모 요소에 적용한 변형을 하위 요소에 적용하는 속성
+         - flat : 하위 요소를 평면으로 처리
+         - perserve-3D : 하위 요소들에 3D 효과를 적용
+
+        backface-visibility
+         - 회전하여 뒷면이 보일 경우 보이게할건지 말건지를 설정하는 속성
+         - hidden : 안보임. visible : 보임.
+        */
+        .container{
+            height: 200px; width: 500px; border: 1px solid black;
+            /* perspective: 500px; perspective-origin: 0 0; */
+        }
+        .box{ background-color: red; width: 400px; height: 50px;}
+        .translate .box1{ transform: translate(100px, 100px);}
+        .translate .box2{ transform: translateX(50%);}
+        .translate .box3{ transform: translateZ(100px);}
+
+        .scale .box{ background: gray;}
+        .scale .box1{ transform: scale(2, 3); transform-origin: 0 0;}
+        .scale .box2{ transform: scaleX(2); transform-origin: 0 0;}
+
+        .rotate .box{ background: magenta;}
+        .rotate .box1{ transform: rotateX(45deg); transform-origin: 0 0;}
+        .rotate .box2{ transform: rotateY(45deg); transform-origin: 0 0;}
+        .rotate .box3{ transform: rotateZ(45deg); transform-origin: 0 0;}
+
+        .skew .box{ background: blue;}
+        .skew .box1{ transform: skewX(30deg);}
+        .skew .box2{ transform: skewY(30deg);}
+        .skew .box3{ transform: skewX(30deg);}
+
+        .backface .box{ 
+            background: url(data:image/jpeg;base64,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);
+            background-size: 200px 200px;
+        }
+        .backface .box1{ 
+            transform: rotateY(180deg); 
+            transform-origin: 100px 0; 
+            width: 200px; height: 200px; backface-visibility: visible;
+        }
+
+        .container.style{
+            perspective: 800px;
+        }
+        .style .box{
+            width: 100px; height: 100px;
+            background-color: red; margin: 0 auto;
+            transform: rotateY(0deg);
+            transition: transform 3s;
+        }
+        .style .box:hover{ transform: rotateY(180deg);}
+        .style .box:hover span{ transform: rotateZ(180deg); transition: transform 6s;}
+        .style .box1{transform-style: flat;}
+        .style .box2{transform-style: preserve-3d;}
+    </style>
+</head>
+<body>
+    <div class="container translate">
+        <div class="box box1"></div>
+    </div>
+    <div class="container translate">
+        <div class="box box2"></div>
+    </div>
+    <div class="container translate">
+        <div class="box box3"></div>
+    </div>
+    <div class="container scale">
+        <div class="box box1"></div>
+    </div>
+    <div class="container scale">
+        <div class="box box2"></div>
+    </div>
+    <div class="container rotate">
+        <div class="box box1"></div>
+    </div>
+    <div class="container rotate">
+        <div class="box box2"></div>
+    </div>
+    <div class="container rotate">
+        <div class="box box3"></div>
+    </div>
+    <div class="container skew">
+        <div class="box box1"></div>
+    </div>
+    <div class="container skew">
+        <div class="box box2"></div>
+    </div>
+    <div class="container skew">
+        <div class="box box3"></div>
+    </div>
+    <div class="container backface">
+        <div class="box box1"></div>
+    </div>
+    <div class="container style">
+        <div class="box box1">
+            <span>Text</span>
+        </div>
+    </div>
+    <div class="container style">
+        <div class="box box2">
+            <span>Text</span>
+        </div>
+    </div>
+</body>
+</html>
