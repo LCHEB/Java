@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>구조</title>
+    <style>
+       header{ background: gray; height: 50px;}
+       aside{ background: yellow; width: 40%; height: 500px; float: left;}
+       section{ background: red; width: 60%; height: 500px; float: right;}
+       footer{ background: aliceblue; height: 200px;}
+       main::after{ clear: both; content: ''; display: block;}
+    </style>
+</head>
+<body>
+    <header>헤더</header>
+    <main>
+        <aside>어사이드</aside>
+        <section>섹션</section>
+    </main>
+    <footer>푸터</footer>
+</body>
+</html>
