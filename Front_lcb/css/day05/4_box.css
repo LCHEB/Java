@@ -1,0 +1,21 @@
+@charset "UTF-8";
+
+.container{
+    border: 5px solid black;
+    padding: 0 10px;
+}
+.container::after{
+    clear: both; content: ''; display: block;
+}
+/* width, height의 %는 부모 컨텐츠 크기의 % 
+- box-sizing 속성이 기본값인 content-box이면 요소의 컨텐츠 크기가 부모 컨텐츠 크기가 됨
+  그래서, 테두리, padding이 있는 경우 실제 요소의 크기는 더 커짐  
+*/
+.box{
+    margin: 10px 0; float: left; box-sizing: border-box;
+    border: 5px solid red; width: calc(50% - 5px);
+    
+}
+.box:nth-of-type(2n){
+    margin-left: 10px;
+}

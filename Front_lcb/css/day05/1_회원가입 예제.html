@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>회원가입 예제</title>
+    <style>
+        fieldset{ border: 2px solid black; font-weight: bold; margin-bottom: 20px;}
+        .btn-submit{ margin-left: 50%;}
+        .box-input{ 
+            font-weight: bold; margin: 10px;
+        }
+        .box-input label{
+            float: left; width: 110px;
+        }
+        .box-input input{
+            /* 
+            calc() 함수 : 단위가 다른 값들을 계산하는 함수, 연산자 앞뒤로 공백을 반드시 추가 
+            */
+            float: left; width: calc(100% - 110px); box-sizing: border-box;
+        }
+        .box-input::after{
+            clear: both; content: ''; display: block;
+        }
+        table{ width: 100%; margin-top: 20px;}
+        tfoot{ background-color: red; text-align: center; color: white;}
+        thead{ background-color: red;  color: white;}
+        tbody{ background-color: burlywood;}
+        .btn{ font-weight: bold;}
+    </style>
+</head>
+<body>
+    <form action="" method="post" id="signupForm">
+        <fieldset>
+            <legend>회원가입</legend>
+            <div class="box-input">
+                <label for="id" class="lb-id">아이디</label>
+                <input type="text" name="id" id="id" class="input" placeholder="아이디를 입력하세요.">
+            </div>
+            <div class="box-input">
+                <label for="pw" class="lb-pw">비번</label>
+                <input type="password" name="pw" id="pw" class="input" placeholder="비번을 입력하세요.">
+            </div>
+            <div class="box-input">
+                <label for="pw2" class="lb-pw2">비밀번호 확인</label>
+                <input type="password" id="pw2" class="input" placeholder="비번 확인을 입력하세요.">
+            </div>
+            <button class="btn-submit">작성하기</button>
+        </fieldset>
+    </form>
+    <hr>
+    <table border="1">
+        <thead>
+        <tr>
+            <th>번호</th>
+            <th colspan="3">기사 제목</th>
+            <th>조회수</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td>2</td>
+            <td colspan="2">HTML은 프로그래밍 언어인가에 대해...</td>
+            <td> <button class="btn">기사보기</button> </td>
+            <td>2</td>
+        </tr>
+        <tr>
+            <td>1</td>
+            <td colspan="2">오늘의 기사</td>
+            <td> <button class="btn">기사보기</button> </td>
+            <td>10</td>
+        </tr>
+        </tbody>
+        <tfoot>
+        <tr>
+            <td colspan="4">전체 기사 개수</td>
+            <td>2</td>
+        </tr>
+        </tfoot>
+    </table>
+</body>
+</html>
