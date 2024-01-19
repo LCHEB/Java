@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>예제1</title>
+</head>
+<body>
+	<div class="box">box</div>
+	<button onclick="yellow();">1번</button>
+	<button onclick="white();">2번</button>
+	<script>
+		/*
+		박스와 버튼2개를 만들고, 1번 버튼을 클릭하면 배경색이 노란색으로
+		2번 버튼을 클릭하면 배경색이 흰색으로 변화는 코드를 작성하세요.
+		*/
+		let box = document.getElementsByClassName("box")[0];
+		box.style.cssText = 'border : 1px solid black; height : 300px'
+		function yellow(){
+			box.style.backgroundColor = "yellow";
+		}
+		function white(){
+			box.style.backgroundColor = "white";
+		}
+	</script>
+</body>
+</html>
