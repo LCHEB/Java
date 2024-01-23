@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>타이머 예제</title>
+	<style>
+		.box{
+			width: auto; height: auto; line-height: 50px;
+			font-weight: bold; 
+		}
+		@keyframes roll{
+			
+		}
+	</style>
+</head>
+<body>
+	<button id="btn">시작</button>
+	<div class="box">00 : 00 : 00</div>
+	<script>
+		/*
+		시작 버튼을 누르면 시간이 흐르는 타이머를 구현하세요.
+		시 : 분 : 초로 화면에 표시
+		00 : 00 : 00
+		*/
+		let btn = document.getElementById("btn");
+		btn.onclick = function(){
+			let count = 0;
+			let id = setInterval(function(){
+				console.log(`${++count}`);
+			}, 1000);
+		}
+	</script>
+</body>
+</html>
