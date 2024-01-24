@@ -39,9 +39,11 @@
 		btns.forEach(function(btn){
 			btn.onclick = function(){
 				//이벤트가 발생한 버튼의 부모 td선택
-				let td = this.parentElement;
+				//let td = this.parentElement;
 				//이벤트가 발생한 버튼의 조상 tr선택
-				let tr = td.parentElement;
+				//let tr = td.parentElement;
+				//closest("선택자") : 조상 요소중 선택자와 일치하는 가장 가까운 조상 요소를 선택
+				let tr = this.closest("tr");
 				//이벤트가 발생한 버튼의 조상 tr의 첫번째 자식요소를 선택
 				let numTd = tr.firstElementChild;
 				//텍스트를 가져옴

@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>예제</title>
+	<style>
+		.container{
+			height: 400px; border: 2px solid black;
+			overflow: hidden;
+		}
+		.container::after{
+			clear: both; content: ''; display: block;
+		}
+		.box{
+			float: left; height: 100%; width: 100%;
+		}
+		.box1{ background-color: red;}
+		.box2{ background-color: blue;}
+		.box3{ background-color: green;}
+		.left{
+			animation: moveLeft forwards;
+		}
+		.right{
+			animation: moveRight forwards;
+		}
+		@keyframes moveLeft {
+			from{
+				margin-left: 0px;
+			}
+			to{
+				margin-left: 0px;
+			}
+		}
+		@keyframes moveRight {
+			from{
+				margin-left: 0px;
+			}
+			to{
+				margin-left: 0px;
+			}
+		}
+		.btn-group{ margin: 0 auto; }
+		button{ cursor: pointer;}
+	</style>
+</head>
+<body>
+	<div class="container">
+		<div class="box box1" data-page="1">1</div>
+		<div class="box box2" data-page="2">2</div>
+		<div class="box box3" data-page="3">3</div>
+	</div>
+	<div class="btn-group">
+		<button id="prevBtn"><</button>
+		<span>
+			<span>1</span> / <span>3</span>
+		</span>
+		<button id="nextBtn">></button>
+	</div>
+	<script>
+		let prevBtn = document.getElementById("prevBtn");
+		let nextBtn = document.getElementById("nextBtn");
+		let contentBox = document.getElementsByClassName("container")[0];
+		let text = document.getElementsByClassName("text")[0];
+		
+		let firstBox;
+		let lastBox;
+		
+		prevBtn.onclick = function(){
+			lastBox = document.getElementsByClassName("box")[2];
+			contentBox.prepend(lastBox);
+			lastBox.classList.add("right");
+			lastBox.addEventListener("animationend", nextComplete);
+		}
+		nextBtn.onclick = function(){
+			firstBox = document.getElementsByClassName("box")[0];
+			firstBox.classList.add("left");
+			firstBox.addEventListener("animationend", prevComplete);
+		}
+		function clearClass(element){
+			element.classList.remove("left");
+			element.classList.remove("right");
+		}	
+		function prevComplete(){
+			clearClass(firstBox);
+			contentBox.append(firstBox)
+			firstBox.removeEventListener("animationend", prevComplete);
+		}
+		function nextComplete(){
+			clearClass(lastBox);
+			lastBox.removeEventListener("animationend", nextComplete);
+		}
+		function updatePage(){
+			//select가 있는 요소 선택
+			let select = document.getElementById("select");
+			//선택한 요소의 data-page를 가져옴
+			let page = document.querySelector("data-page");
+			//cur-page 요소를 선택
+			
+			//가져온 page를 cur-page의 텍스트로 수정
+
+		}
+	</script>
+</body>
+</html>
