@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>탭메뉴 예제</title>
+	<script src="../../static/jquery.js"></script>
+	<style>
+		ul{ list-style: none;}
+        a{ text-decoration: none; color: black;}
+        .menu-list::after{
+            clear: both; content: ''; display: block;
+        }
+        .menu-item~.menu-item{
+            margin-left: -3px;
+        }
+        .menu-item{
+            float: left; line-height: 50px;
+            font-size: 24px; font-weight: bold; width: 33%; box-sizing: border-box;
+            position: relative; text-align: center;
+        }
+        .menu-item:last-of-type{
+            margin-right: -3px;
+        }
+        .menu-link{
+            display: block; border: 3px solid black;
+        }
+		.box-group{ 
+			width: 400px; height: 300px; border: 1px solid black;
+			margin: 0 auto; overflow: hidden;
+		}
+		.box{ height: 100%; display: none;}
+		.box1{ background-color: greenyellow;}
+		.box2{ background-color: yellow;}
+		.box3{ background-color: skyblue;}
+    </style>
+	</style>
+</head>
+<body>
+	<ul class="menu-list">
+		<li class="menu-item">
+			<a href="#" class="menu-link" id="menu-link1">메뉴1</a>
+		</li>
+		<li class="menu-item">
+			<a href="#" class="menu-link" id="menu-link2">메뉴2</a>
+		</li>
+		<li class="menu-item">
+			<a href="#" class="menu-link" id="menu-link3">메뉴3</a>
+		</li>
+	</ul>
+	<div class="box-group">
+		<div class="box box1">1</div>
+		<div class="box box2">2</div>
+		<div class="box box3">3</div>
+	</div>
+	<script>
+		$("#menu-link1").click(function(){
+			$(".box1").show();
+		})
+		$("#menu-link2").click(function(){
+			$(".box1").hide();
+			$(".box2").show();
+		})
+		$("#menu-link3").click(function(){
+			$(".box1").hide();
+			$(".box2").hide();
+			$(".box3").show();
+		})
+	</script>
+</body>
+</html>

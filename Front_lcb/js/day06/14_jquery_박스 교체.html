@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>박스 교체 예제</title>
+	<style>
+		.container{
+			width: 500px; margin: 0 auto;
+		}
+		.box-group{ border: 3px solid black;}
+		.box{ height: 400px; display: none;}
+		.btn-group{
+			display: flex; align-items: center;
+			justify-content: center; margin-top: 10px;
+		}
+		.btn-prev,.btn-next{
+			width: 30px; height: 30px; border-radius: 50%;
+			border-width: 1px; background-color: #fff;
+			cursor: pointer;
+		}
+		.btn-prev:hover, .btn-next:hover{
+			font-weight: bold; background-color: aliceblue;
+		}
+		.page-group{
+			margin: 0 10px;
+		}
+		.box.select{
+			display: block;
+		}
+	</style>
+</head>
+<body>
+	<div class="container">
+		<div class="box-group">
+			<div class="box select">1</div>
+			<div class="box">2</div>
+			<div class="box">3</div>
+		</div>
+		<div class="btn-group">
+			<button class="btn-prev">&lt;</button>
+			<span class="page-group">
+				<span class="current-page">1</span> / 3
+			</span>
+			<button class="btn-next">&gt;</button>
+		</div>
+	</div>
+	<script>
+		//다음 버튼 클릭 이벤트
+		$(".btn-next").click(function(){
+			//select 요소를 선택
+			let select = $(".select");
+			//.select 요소의 다음 요소가 있으면
+			if(select.after()){
+				//다음 요소에 select 클래스를 추가
+				$(this).after("select");
+				//없으면
+			}else{
+				//처음 요소에 select 클래스를 추가
+				$(".box").first().append("select");
+			}
+			//기존에 있던 select클래스를 제거
+			$(".box").removeClass("select");
+		})
+		//이전 버튼 클릭 이벤트
+			//.select 요소를 선택
+
+			//.select 요소의 이전 요소가 있으면
+
+				//이전 요소에 select 클래스를 추가
+
+			//없으면
+
+				//마지막 요소에 select 클래스를 추가
+
+			//기존에 있던 select클래스를 제거
+	</script>
+</body>
+</html>
