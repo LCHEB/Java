@@ -65,7 +65,7 @@ alter table member add date datetime not null default current_timestamp;
 
 # member 테이블에 가입일을 의미하는 date를 reg-date로 변경
 alter table member change date reg_date datetime not null default current_timestamp;
-alter table member drop reg_date;
+
 # member 테이블에 불필요한 컬럼 count를 추가
 alter table member add count int not null;
 # member 테이블에 불필요한 컬럼 count를 삭제
