@@ -28,6 +28,6 @@ select le_title as 강의명, count(co_st_num) as 학생수 from lecture
 join 
 	course 
 on 
-	le_num = co_le_num 
+	le_num = co_le_num
 group by
 	le_num;

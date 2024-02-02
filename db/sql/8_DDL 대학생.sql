@@ -74,4 +74,3 @@ insert into course(co_st_num, co_le_num) values
 # 기계 가나다 학생은 프로그래밍언어를 수강 신청
 insert into course(co_st_num, co_le_num) values
 ("2024123001", 2);
-select * from course;
