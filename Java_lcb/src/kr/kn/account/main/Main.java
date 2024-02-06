@@ -7,7 +7,7 @@ import kr.kn.account.controller.AccountController;
 public class Main {
 	
 	private static AccountController accountController;
-	
+	//작업 순서 controller - service - servieImp - dao - Mapper
 	public static void main(String[] args) {
 		int menu;
 		Scanner scan = new Scanner(System.in);

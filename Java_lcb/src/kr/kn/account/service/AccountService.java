@@ -12,6 +12,12 @@ public interface AccountService {
 
 	List<Type> getTypeList();
 
-	boolean insertItem(Item item, String type);
+	boolean insertItem(Item item);
+
+	List<Item> getItemListByDate(String date);
+
+	boolean updateItem(Item item);
+
+	boolean deleteItem(int it_num);
 
 }
