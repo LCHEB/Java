@@ -81,3 +81,40 @@ where
 	or_detail is null or or_detail not in ("반품", "환불")
 group by
 	pr_code;
+    
+# 모든 제품을 조회하는 쿼리
+use shoppingmall2;
+select * from product;
+
+# 모든 카테고리를 조회하는 쿼리
+select * from category;
+
+# 제품별 카테고리를 조회. 카테고리 제품을 조회
+select pr_name as 제품명, ca_name as 카테고리 from product 
+join 
+	category 
+on 
+	pr_ca_num = ca_num;
+    
+# 기타 카테고리에 포함된 모든 제품을 조회
+select pr_name as 제품명, ca_name as 카테고리 from product 
+join 
+	category 
+on 
+	pr_ca_num = ca_num
+where
+	ca_name = '기타';
+
+# abc123 회원이 주문한 제품 목록을 조회
+select pr_name from `order` 
+join 
+	product on pr_code = or_pr_code
+where 
+	or_id = 'abc123';
+    
+# 제품별 판매수량을 조회하는 쿼리
+select product.*, ifNull(sum(or_num2), 0) as 판매수량 from `order` 
+right join 
+	product on or_pr_code = pr_code
+group by 
+	pr_code;
