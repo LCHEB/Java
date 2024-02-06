@@ -116,5 +116,23 @@ where
 select product.*, ifNull(sum(or_num2), 0) as 판매수량 from `order` 
 right join 
 	product on or_pr_code = pr_code
+where
+	or_detail not in ('반품', '환불') or or_detail is null
 group by 
 	pr_code;
+    
+# 인기 제품 조회. 인기 제품은 누적 판매량을 기준으로 상위 5개 제품
+select product.*, ifNull(sum(or_num2), 0) as 판매수량 from `order` 
+right join 
+	product on or_pr_code = pr_code
+where
+	or_detail not in ('반품', '환불') or or_detail is null
+group by 
+	pr_code
+order by 판매수량 desc, pr_pride asc
+limit 0, 5;
+
+# 가격이 제일 비싼 제품을 조회
+select * from product
+order by pr_pride desc
+limit 0, 1;
