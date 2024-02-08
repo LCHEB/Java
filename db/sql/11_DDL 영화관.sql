@@ -4,6 +4,14 @@ create database if not exists `movie`;
 
 use `movie`;
 
+DROP TABLE IF EXISTS `price`;
+
+CREATE TABLE `price` (
+	`pr_num`	int	primary key auto_increment,
+	`pr_type`	varchar(5)	not null,
+	`pr_price`	int	not null
+);
+
 DROP TABLE IF EXISTS `member`;
 
 CREATE TABLE `member` (
