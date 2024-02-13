@@ -1,8 +1,8 @@
-drop database if exists `community`;
+drop database if exists `community2`;
 
-create database if not exists `community`;
+create database if not exists `community2`;
 
-use `community`;
+use `community2`;
 
 DROP TABLE IF EXISTS `member`;
 
