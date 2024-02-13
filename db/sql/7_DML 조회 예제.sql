@@ -136,3 +136,46 @@ limit 0, 5;
 select * from product
 order by pr_pride desc
 limit 0, 1;
+
+-- --------------------------------------------------------------------
+
+# 카테고리별 등록된 제품 수를 조회하는 쿼리
+SELECT 
+    ca_name, IF(COUNT(pr_ca_num) > 0, COUNT(pr_ca_num), '등록된 제품없음') as '카테고리별 제품수'
+FROM
+    product
+        RIGHT JOIN
+    category ON pr_ca_num = ca_num
+GROUP BY ca_num;
+
+# 회원별 누적 주문 금액을 조회하는 쿼리
+SELECT 
+    id, ifnull(SUM(or_money), 0) as '누적 금액'
+FROM
+    `order`
+        RIGHT JOIN
+    user ON or_id = id
+GROUP BY id;
+
+# 회원별 등급을 조회하는 쿼리, 등급은 기본이 브론즈, 누적금액이 5만원이상이면 실버, 누적금액이 8만원 이상이면 골드
+# case문을 활용
+SELECT 
+    id, case
+    when ifnull(SUM(or_money), 0) >= 80000 then '골드'
+    when ifnull(SUM(or_money), 0) >= 50000 then '실버'
+    else '브론즈'
+    end as 등급
+FROM
+    `order`
+        RIGHT JOIN
+    user ON or_id = id
+GROUP BY id;
+
+# 제품 첨부파일을 추가한 후, 추가한 파일이 이미지인지 동영상인지 조회하는 쿼리
+select 
+	case right(sc_name, 3)
+	when 'jpg' then '이미지'
+	when 'png' then '이미지'
+	when 'mp4' then '영상'
+	end as 종류, sc_name
+ from screen;
