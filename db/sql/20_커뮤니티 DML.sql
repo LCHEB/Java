@@ -126,4 +126,79 @@ BEGIN
 END //
 DELIMITER ;
 
-CALL BOARD_RECOMMEND('abc123', 1, -1);board
+CALL BOARD_RECOMMEND('abc123', 1, -1);
+
+# 공지 커뮤니티 1페이지에 등록된 게시글 목록을 조회하는 쿼리
+use community2;
+SELECT 
+    *
+FROM
+    board
+WHERE
+    bo_co_num = (SELECT 
+            co_num
+        FROM
+            community
+        WHERE
+            co_name = '공지')
+ORDER BY bo_num DESC
+LIMIT 0 , 10;
+            
+# 2번 게시글을 상세조회하는 쿼리
+select * from board where bo_num = 2;
+
+# abc123 회원이 2번 게시글에 확인했습니다 라고 댓글을 달았을 떄 쿼리
+insert into comment values (null, 2, 'abc123', '확인했습니다');
+
+# 2번 게시글에 등록된 댓글 1페이지를 조회하는 쿼리
+SELECT 
+    *
+FROM
+    comment
+WHERE
+    cm_bo_num = 2
+ORDER BY cm_num DESC
+LIMIT 0 , 5;
+
+# 신고 사유를 등록(욕설, 허위사실유포, 광고, 음란, 커뮤니티에 맞지 않음, 기타)
+insert into report_type values ('욕설'),('허위사실유포'),('광고'),('음란'),('커뮤니티에 맞지 않음'),('기타');
+# admin이 1번 댓글을 '기타'로 신고
+insert into report(rp_me_id, rp_rt_name, rp_table, rp_content, rp_state, rp_target) 
+values ('admin', '기타', 'comment', '', '신고접수', 1);
+
+# 관리자가 신고 내역을 조회
+select * from report where rp_me_id = (select me_id from member where me_authority = 'ADMIN') and rp_state = '신고접수';
+
+# 관리자가 1번 신고내역을 신고반려로 처리했을 때
+update report set rp_state = '신고반려' where rp_num = 1;
+
+# abc123회원이 1번 게시글을 '기타', '내용없음' 으로 신고
+insert into report(rp_me_id, rp_rt_name, rp_table, rp_content, rp_state, rp_target) 
+values('abc123', '기타', 'board', '내용없음', '신고접수', 1);
+# qwe123회원이 1번 게시글을 '기타', '내용없음' 으로 신고
+insert into report(rp_me_id, rp_rt_name, rp_table, rp_content, rp_state, rp_target) 
+values('qwe123', '기타', 'board', '내용없음', '신고접수', 1);
+# admin123회원이 1번 게시글을 '기타', '내용없음' 으로 신고
+insert into report(rp_me_id, rp_rt_name, rp_table, rp_content, rp_state, rp_target) 
+values('admin', '기타', 'board', '내용없음', '신고접수', 1);
+
+# 관리자가 1번 게시글 신고 내역을 모두 '신고처리'로 처리
+UPDATE report 
+SET 
+    rp_state = '신고처리'
+WHERE
+    rp_target = 1 AND rp_table = 'board'
+        AND rp_state = '신고접수';
+        
+# 1번 신고된 게시글을 삭제하고, 1번 게시글을 작성한 작성자에게 1달 이용정지를 적용
+# 1번 게시글을 삭제하기 위해 1번 게시글에 달린 댓글들을 삭제
+delete from comment where cm_bo_num = 1;
+# 1번 게시글을 삭제하기 위해 1번 게시글을 추천한 추천 정보를 삭제
+delete from recommend where re_bo_num = 1;
+# 1번 게시글을 삭제
+delete from board where bo_num = 1;
+# abc123 회원을 한달간 이용 정지
+update member set me_ms_state = '기간정지' where me_id = 'abc123';
+
+# qwe123회원이 회원을 탈퇴
+update member set me_ms_state = '탈퇴' where me_id = 'qwe123';
