@@ -5,6 +5,7 @@ import java.util.List;
 import kr.kn.account.model.vo.Category;
 import kr.kn.account.model.vo.Item;
 import kr.kn.account.model.vo.Type;
+import kr.kn.account.pagination.Criteria;
 
 public interface AccountService {
 
@@ -19,5 +20,7 @@ public interface AccountService {
 	boolean updateItem(Item item);
 
 	boolean deleteItem(int it_num);
+
+	List<Item> getItemListByDate(Criteria cri);
 
 }

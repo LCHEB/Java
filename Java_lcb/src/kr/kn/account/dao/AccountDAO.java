@@ -1,6 +1,5 @@
 package kr.kn.account.dao;
 
-import java.util.Date;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Param;
@@ -8,6 +7,7 @@ import org.apache.ibatis.annotations.Param;
 import kr.kn.account.model.vo.Category;
 import kr.kn.account.model.vo.Item;
 import kr.kn.account.model.vo.Type;
+import kr.kn.account.pagination.Criteria;
 
 public interface AccountDAO {
 
@@ -22,5 +22,7 @@ public interface AccountDAO {
 	boolean updateItem(@Param("item")Item item);
 
 	boolean deleteItem(@Param("it_num")int it_num);
+
+	List<Item> selectItemListSearch(@Param("cri")Criteria cri);
 
 }
