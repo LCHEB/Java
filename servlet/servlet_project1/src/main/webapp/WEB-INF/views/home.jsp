@@ -36,10 +36,10 @@
 </nav>
 <div class="container">
 	<h1>메인 페이지입니다.</h1>
-	<c:forEach begin="1" end="4" var="i" step="2">
+	<c:forEach begin="1" end="4" var="i" step="1">
 	${i },
 	</c:forEach>
-	<c:set var="name" value="홍길동1"/>
+	<c:set var="name" value="홍길동"/>
 	${name}
 	<c:if test='${name eq "홍길동" }'>홍길동입니다.</c:if>
 	<c:choose>
