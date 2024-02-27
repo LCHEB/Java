@@ -37,8 +37,7 @@ public class LoginServlet extends HttpServlet {
 		if(user != null) {
 			request.setAttribute("msg", "로그인에 성공했습니다.");
 			request.setAttribute("url", "");
-			HttpSession session = request.getSession();
-			session.setAttribute("user", user);
+			request.getSession().setAttribute("user", user);
 		//실패하면 로그인 페이지로 이동
 		}else {
 			request.setAttribute("msg", "로그인에 실패했습니다.");
