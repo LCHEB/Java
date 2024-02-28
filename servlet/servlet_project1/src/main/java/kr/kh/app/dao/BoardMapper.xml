@@ -23,11 +23,9 @@
 		INSERT INTO BOARD(bo_title, bo_content, bo_co_num, bo_me_id)
 		VALUES(#{board.bo_title},#{board.bo_content},#{board.bo_co_num},#{board.bo_me_id})
 	</insert>
-	
 	<select id="selectCommunityList" resultType="kr.kh.app.model.vo.CommunityVO">
 		SELECT * FROM COMMUNITY
 	</select>
-	
 	<select id="selectBoardList" resultMap="BoardMap">
 		SELECT * 
 		FROM BOARD 
@@ -44,11 +42,9 @@
 		ORDER BY BO_NUM DESC
 		limit #{cri.pageStart}, #{cri.perPageNum}
 	</select>
-	
 	<select id="selectCommunity" resultType="kr.kh.app.model.vo.CommunityVO">
 		select * from community where co_num = #{bo_co_num}
 	</select>
-	
 	<select id="selectTotalCount" resultType="int">
 		SELECT count(*) 
 		FROM BOARD 
@@ -63,17 +59,22 @@
 			where bo_me_id = #{cri.search}
 		</if>
 	</select>
-	
 	<select id="selectBoard" resultMap="BoardMap">
 		select * from board where bo_num = #{num}
 	</select>
-	
 	<update id="updateView">
 		update board set bo_view = bo_view + 1
 		where bo_num = #{num}
 	</update>
-	
 	<delete id="deleteBoard">
 		delete from board where bo_num = #{num}
 	</delete>
+	<update id="updateBoard">
+		update board set
+			bo_title = #{board.bo_title},
+			bo_content = #{board.bo_content},
+			bo_co_num = #{board.bo_co_num}
+		where
+			bo_num = #{board.bo_num}
+	</update>
 </mapper>
