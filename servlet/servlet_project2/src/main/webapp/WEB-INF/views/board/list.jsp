@@ -21,9 +21,9 @@
 	<form action="<c:url value="/board/list"/>" class="mb-3 mt-3">
 		<div class="input-group">
 			<select name="type" class="form-control">
-				<option value="all">전체</option>
-				<option value="bo_title">제목</option>
-				<option value="bo_me_id">작성자</option>
+				<option value="all" <c:if test='${pm.cri.type == "all"}'>selected</c:if>>전체</option>
+				<option value="bo_title" <c:if test='${pm.cri.type == "bo_title"}'>selected</c:if>>제목</option>
+				<option value="bo_me_id" <c:if test='${pm.cri.type == "bo_me_id"}'>selected</c:if>>작성자</option>
 			</select>
 		    <input type="text" class="form-control" placeholder="검색어" name="search" value="">
 		    <button class="btn btn-outline-success">검색</button>
@@ -55,6 +55,39 @@
 			</c:forEach>
 		</tbody>
 	</table>
+	<!-- 서버에서 보낸 PageMaker객체를 이용하여 페이지네이션 구성 -->
+	<ul class="pagination justify-content-center">
+		<c:if test="${pm.prev}">
+	    	<li class="page-item">
+	    		<c:url var="prevUrl" value="/board/list">
+	    			<c:param name="type" value="${pm.cri.type}"/>
+	    			<c:param name="search" value="${pm.cri.search}"/>
+	    			<c:param name="page" value="${pm.startPage-1}"/>
+	    		</c:url>
+	    		<a class="page-link" href="${prevUrl}">이전</a>
+	    	</li>
+		</c:if>
+		<c:forEach begin="${pm.startPage}" end="${pm.endPage}" var="i">
+	    	<li class="page-item <c:if test="${pm.cri.page == i}">active</c:if>">
+	    		<c:url var="page" value="/board/list">
+	    			<c:param name="type" value="${pm.cri.type}"/>
+	    			<c:param name="search" value="${pm.cri.search}"/>
+	    			<c:param name="page" value="${i}"/>
+	    		</c:url>
+	    		<a class="page-link" href="${page}">${i}</a>
+	    	</li>
+		</c:forEach>
+    	<c:if test="${pm.next}">
+	    	<li class="page-item">
+	    		<c:url var="nextUrl" value="/board/list">
+	    			<c:param name="type" value="${pm.cri.type}"/>
+	    			<c:param name="search" value="${pm.cri.search}"/>
+	    			<c:param name="page" value="${pm.endPage+1}"/>
+	    		</c:url>
+	    		<a class="page-link" href="${nextUrl}">다음</a>
+	    	</li>
+    	</c:if>
+  	</ul>
 	<a href="<c:url value="/board/insert"/>" class="btn btn-outline-primary">게시글 등록</a>
 </div>
 </body>
