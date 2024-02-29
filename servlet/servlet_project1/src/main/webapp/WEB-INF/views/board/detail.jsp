@@ -13,6 +13,8 @@
 <body>
 <jsp:include page="/WEB-INF/views/header.jsp"/>
 <div class="container">
+	<c:choose>
+		<c:when test="${board != null}">
 	<h1>게시글 상세</h1>
 	<div>
 		<div class="mb-3 mt-3">
@@ -41,6 +43,11 @@
 		  	<a href="<c:url value="/board/update?num=${board.bo_num}"/>" class="btn btn-outline-warning">수정</a>
 	  	</c:if>
 	</div>
+		</c:when>
+		<c:otherwise>
+			<h1>등록되지 않은 게시글이거나 삭제된 게시글입니다.</h1>
+		</c:otherwise>
+	</c:choose>
 </div>
 </body>
 </html>
