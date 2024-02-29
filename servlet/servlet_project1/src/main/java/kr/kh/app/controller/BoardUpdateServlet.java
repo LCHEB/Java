@@ -40,8 +40,7 @@ public class BoardUpdateServlet extends HttpServlet {
 		MemberVO user = (MemberVO)request.getSession().getAttribute("user");
 		//게시글 작성자와 회원 아이디가 같은지 확인
 		if(board == null 
-				|| !board.getBo_me_id().equals(user.getMe_id())
-				|| user == null) {
+				|| !board.getBo_me_id().equals(user.getMe_id())) {
 			//다르면 게시글 상세로 보내고, 작성자가 아닙니다라고 메시지를 출력
 			request.setAttribute("msg", "작성자가 아닙니다");
 			request.setAttribute("url", "board/detail?num="+num);
