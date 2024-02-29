@@ -49,16 +49,6 @@ public class BoardInsertServlet extends HttpServlet {
 		String content = request.getParameter("content");
 		//세션에서 회원 정보를 가져옴
 		MemberVO user = (MemberVO)request.getSession().getAttribute("user");
-		//회원 정보가 없으면 
-		if(user == null) {
-			//화면에 msg로 로그인이 필요한 서비스입니다라고 전송
-			request.setAttribute("msg", "로그인이 필요한 서비스입니다.");
-			//화면에 url로 board/list를 전송
-			request.setAttribute("url", "board/list");
-			//message.jsp를 전송
-			request.getRequestDispatcher("/WEB-INF/views/message.jsp").forward(request, response);
-			return;
-		}
 		//회원 정보가 있으면
 		//작성자에 회원 아이디를 저장
 		String writer = user.getMe_id();
