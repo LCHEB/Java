@@ -4,6 +4,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 
+import javax.servlet.http.Part;
+
 import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
@@ -12,13 +14,15 @@ import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 import kr.kh.app.dao.BoardDAO;
 import kr.kh.app.model.vo.BoardVO;
 import kr.kh.app.model.vo.CommunityVO;
+import kr.kh.app.model.vo.FileVO;
 import kr.kh.app.model.vo.MemberVO;
 import kr.kh.app.pagination.Criteria;
+import kr.kh.app.utils.FileUploadUtils;
 
 public class BoardServiceImp implements BoardService{
 
 	private BoardDAO boardDao;
-	
+	private String uploadPath = "D:\\uploads";
 	public BoardServiceImp() {
 		String resource = "kr/kh/app/config/mybatis-config.xml";
 		
@@ -33,19 +37,27 @@ public class BoardServiceImp implements BoardService{
 	}
 
 	@Override
-	public boolean insertBoard(BoardVO board) {
+	public boolean insertBoard(BoardVO board, Part filePart) {
 		if( board == null || 
-			board.getBo_title() == null || 
-			board.getBo_title().length() == 0) {
+			!checkString(board.getBo_content()) || 
+			!checkString(board.getBo_title())) {
 			return false;
 		}
-		if(board.getBo_me_id() == null) {
+		if(!checkString(board.getBo_me_id())) {
 			return false;
 		}
-		if(board.getBo_content() == null) {
-			return false;
+		boolean res = boardDao.insertBoard(board);
+		
+		//첨부파일 업로드
+		//업로드할 첨부 파일이 없으면
+		if(filePart == null) {
+			return res;
 		}
-		return boardDao.insertBoard(board);
+		String fileName = FileUploadUtils.upload(uploadPath, filePart);
+		String fileOriName = FileUploadUtils.getFileName(filePart);
+		FileVO file = new FileVO(board.getBo_num(), fileName, fileOriName);
+		boardDao.insertFile(file);
+		return true;
 	}
 
 	@Override
