@@ -9,6 +9,7 @@
 <!-- 부트스트랩5 css/js -->
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
 </head>
 <body>
 <jsp:include page="/WEB-INF/views/header.jsp"/>
@@ -28,14 +29,16 @@
 	  	</div>
 	  	<div class="mb-3 mt-3">
 		    <label for="writer" class="form-label">작성자:</label>
-		    <input type="text" class="form-control" id="writer" name="writer" value="${user.me_id}" readonly>
+		    <input type="text" class="form-control" id="writer" name="writer" value="${user.me_id}">
 	  	</div>
 	  	<div class="mb-3 mt-3">
 		    <label for="content" class="form-label">내용:</label>
 		    <textarea rows="10" class="form-control" id="content" name="content" placeholder="내용"></textarea>
 	  	</div>
 	  	<div class="mb-3 mt-3">
-		    <label for="file" class="form-label">첨부파일:</label>
+		    <label for="content" class="form-label">첨부파일:</label>
+		    <input type="file" class="form-control" name="file">
+		    <input type="file" class="form-control" name="file">
 		    <input type="file" class="form-control" name="file">
 	  	</div>
 	  	<button class="btn btn-outline-warning col-12">글 등록</button>

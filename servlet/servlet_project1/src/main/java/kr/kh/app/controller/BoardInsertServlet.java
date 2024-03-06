@@ -1,10 +1,6 @@
 package kr.kh.app.controller;
 
-import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
 import java.util.ArrayList;
 
 import javax.servlet.ServletException;
@@ -21,7 +17,6 @@ import kr.kh.app.model.vo.CommunityVO;
 import kr.kh.app.model.vo.MemberVO;
 import kr.kh.app.service.BoardService;
 import kr.kh.app.service.BoardServiceImp;
-import kr.kh.app.utils.FileUploadUtils;
 
 @WebServlet("/board/insert")
 @MultipartConfig(
@@ -62,8 +57,7 @@ public class BoardInsertServlet extends HttpServlet {
 		if(user == null) {
 			response.sendRedirect(request.getContextPath()+"/board/list");
 			return;
-		}
-		*/
+		}*/
 		String title = request.getParameter("title");
 		String content = request.getParameter("content");
 		String writer = user.getMe_id();
@@ -71,14 +65,13 @@ public class BoardInsertServlet extends HttpServlet {
 		BoardVO board = new BoardVO(co_num, title, content, writer);
 		
 		//첨부파일을 가져옴
-		Part filePart = request.getPart("file");
+		ArrayList<Part> partList = (ArrayList<Part>) request.getParts();
 		
 		//서비스에게 게시글을 주면서 등록하라고 시킴
-		if(boardService.insertBoard(board, filePart)) {
+		if(boardService.insertBoard(board, partList)) {
 			response.sendRedirect(request.getContextPath()+"/board/list");
 		}else {
 			response.sendRedirect(request.getContextPath()+"/board/insert");
 		}
 	}
-
 }
