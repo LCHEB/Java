@@ -33,6 +33,6 @@ public interface BoardDAO {
 
 	void deleteFile(@Param("fi_num")int fi_num);
 
-	FileVO selectFile(@Param("fi_num")int fi_num);
+	FileVO selectFile(@Param("fi_num")int num);
 
 }
