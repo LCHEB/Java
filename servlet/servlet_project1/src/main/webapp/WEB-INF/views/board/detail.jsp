@@ -34,7 +34,7 @@
 			  	</div>
 			  	<div class="mb-3 mt-3 clearfix">
 			  		<button type="button" id="btnUp" data-state="1" class="btn btn-outline-success col-5 float-start">추천</button>
-			  		<button type="button" id="btnDown" data-state="-1" class="btn btn-outline-danger col-5 float-end">비추천</button>
+			  		<button type="button" id="btnDown" data-state="-1"  class="btn btn-outline-danger col-5 float-end">비추천</button>
 			  	</div>
 			  	<div class="mb-3 mt-3">
 				    <label for="content" class="form-label">내용:</label>
@@ -84,16 +84,17 @@
 		let boNum = '${board.bo_num}';
 		//state가 1이면 추천, -1이면 비추천
 		let state = this.getAttribute("data-state");
+		
 		fetch(`<c:url value="/recommend"/>?boNum=\${boNum}&state=\${state}`)
 		.then(response => response.text())
-		.then(date =>{
-			let str = state == 1? '추천' : '비추천';
+		.then(data =>{
+			let str = state == 1 ? '추천' : '비추천';
 			switch(data){
-				case "1": alert('게시글을 추천했습니다.'); break;
-				case "-1": alert('게시글을 비추천했습니다.'); break;
-				case "0": alert(`게시글 \${str}을 취소했습니다.`); break;
-				default: alert(date);
-			}		
+				case "1":	alert('게시글을 추천했습니다.'); break;
+				case "-1":	alert('게시글을 비추천했습니다.'); break;
+				case "0":	alert(`게시글 \${str}을 취소했습니다.`); break;
+				default: 	alert(data);
+			}
 		})
 		.catch(error => console.error(error));
 	}
