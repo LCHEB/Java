@@ -1,5 +1,6 @@
 package kr.kh.app.service;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
@@ -37,7 +38,7 @@ public class BoardServiceImp implements BoardService{
 	}
 
 	@Override
-	public boolean insertBoard(BoardVO board, Part filePart) {
+	public boolean insertBoard(BoardVO board , ArrayList<Part> partList) {
 		if( board == null || 
 			!checkString(board.getBo_content()) || 
 			!checkString(board.getBo_title())) {
@@ -53,7 +54,9 @@ public class BoardServiceImp implements BoardService{
 		}
 		
 		//첨부파일 업로드
-		uploadFile(filePart, board.getBo_num());
+		for(Part filePart : partList) {
+			uploadFile(filePart, board.getBo_num());
+		}
 		return res;
 	}
 
@@ -99,41 +102,63 @@ public class BoardServiceImp implements BoardService{
 		if(board == null || !board.getBo_me_id().equals(user.getMe_id())) {
 			return false;
 		}
+		
+		//게시글의 첨부파일을 서버 폴더에서 삭제(실제 파일)
+		//게시글의 첨부파일을 DB에서 삭제
+		//게시글에 있는 첨부파일 정보을 가져옴
+		ArrayList<FileVO> fileList = boardDao.selectFileByBo_num(num);
+		
+		for(FileVO file : fileList) {
+			deleteFile(file);
+		}
+				
 		//같으면 게시글 삭제 후 삭제 여부를 반환
 		return boardDao.deleteBoard(num);
 	}
 
+	
+
 	@Override
-	public boolean updateBoard(BoardVO board, MemberVO user) {
-		if(user.getMe_id() == null || user == null) {
+	public boolean updateBoard(BoardVO board, MemberVO user, ArrayList<Integer> nums, ArrayList<Part> fileList) {
+		if(user == null || user.getMe_id() == null) {
 			return false;
 		}
-		if(board == null 
-				|| !checkString(board.getBo_title()) 
-				|| !checkString(board.getBo_content())) {
+		if( board == null || 
+			!checkString(board.getBo_title()) || 
+			!checkString(board.getBo_content())) {
 			return false;
 		}
-		//게시글 번호를 이용하여 게시글 가져옴
+		//게시글 번호를 이용하여 게시글을 가져옴
 		BoardVO dbBoard = boardDao.selectBoard(board.getBo_num());
 		//게시글 작성자와 회원 아이디를 비교하여 다르면 false 반환
 		if(dbBoard == null || !dbBoard.getBo_me_id().equals(user.getMe_id())) {
 			return false;
 		}
+		
+		//첨부파일 추가
+		for(Part file : fileList) {
+			uploadFile(file, board.getBo_num());
+		}
+		
+		//첨부파일 삭제
+		for(int fi_num : nums) {
+			FileVO fileVo = boardDao.selectFile(fi_num);
+			deleteFile(fileVo);
+		}
+		
 		//같으면 게시글 수정
 		return boardDao.updateBoard(board);
 	}
-	
 	private boolean checkString(String str) {
 		if(str == null || str.length() == 0) {
 			return false;
 		}
 		return true;
 	}
-	
 	private void uploadFile(Part filePart, int bo_num) {
 		//업로드할 첨부 파일이 없으면
 		if(filePart == null) {
-			return;
+			return ;
 		}
 		String fileOriName = FileUploadUtils.getFileName(filePart);
 		if(fileOriName == null || fileOriName.length() == 0) {
@@ -143,9 +168,21 @@ public class BoardServiceImp implements BoardService{
 		FileVO file = new FileVO(bo_num, fileName, fileOriName);
 		boardDao.insertFile(file);
 	}
+	
+	private void deleteFile(FileVO fileVo) {
+		if(fileVo == null) {
+			return;
+		}
+		File file = new File(uploadPath 
+				+ fileVo.getFi_name().replace('/', File.separatorChar));
+		if(file.exists()) {
+			file.delete();
+		}
+		boardDao.deleteFile(fileVo.getFi_num());
+	}
 
 	@Override
-	public FileVO getFile(int num) {
+	public ArrayList<FileVO> getFile(int num) {
 		return boardDao.selectFileByBo_num(num);
 	}
 }
