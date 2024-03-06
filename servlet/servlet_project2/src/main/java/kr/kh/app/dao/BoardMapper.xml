@@ -40,7 +40,7 @@
 		select * from community where co_num = #{bo_co_num}
 	</select>
 	
-	<insert id="insertBoard">
+	<insert id="insertBoard" useGeneratedKeys="true" keyProperty="board.bo_num">
 		insert into board(bo_title, bo_content, bo_me_id, bo_co_num)
 		values(#{board.bo_title},#{board.bo_content},#{board.bo_me_id},#{board.bo_co_num})
 	</insert>
@@ -50,30 +50,37 @@
 	</select>
 	
 	<select id="selectTotalCount" resultType="int">
-		select count(*) from board
+		select count(*) from board 
 		<choose>
 			<!-- 전체 검색 -->
 			<when test='cri.type == "all"'>
-				where
-					bo_title like concat('%', #{cri.search},'%') or
-					bo_me_id like concat('%',#{cri.search},'%')
+				where 
+					bo_title like concat('%',#{cri.search}, '%') or 
+					bo_me_id like concat('%',#{cri.search}, '%')
 			</when>
 			<!-- 제목 또는 작성자 검색 -->
 			<otherwise>
 				where
-					${cri.type} like concat('%',#{cri.search},'%')
+					${cri.type} like concat('%',#{cri.search}, '%')
 			</otherwise>
 		</choose>
 	</select>
 	<update id="updateView">
-		update board set bo_view = bo_view + 1
-		where bo_num = #{num}
+		update board
+		set
+			bo_view = bo_view + 1
+		where
+			bo_num = #{num}
 	</update>
 	<select id="selectBoard" resultMap="BoardMap">
-		select * from board where bo_num = #{num}
+		select * from board
+		where
+			bo_num = #{num}
 	</select>
 	<delete id="deleteBoard">
-		delete from board where bo_num = #{num}
+		delete from board
+		where
+			bo_num = #{num}
 	</delete>
 	<update id="updateBoard">
 		update board set
@@ -83,4 +90,8 @@
 		where
 			bo_num = #{board.bo_num}
 	</update>
+	<insert id="insertFile">
+		insert into file(fi_bo_num, fi_name, fi_ori_name)
+		values(#{file.fi_bo_num},#{file.fi_name},#{file.fi_ori_name})
+	</insert>
 </mapper>

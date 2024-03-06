@@ -4,10 +4,12 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 import javax.servlet.ServletException;
+import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.Part;
 
 import kr.kh.app.model.vo.BoardVO;
 import kr.kh.app.model.vo.CommunityVO;
@@ -16,17 +18,22 @@ import kr.kh.app.service.BoardService;
 import kr.kh.app.service.BoardServiceImp;
 
 @WebServlet("/board/insert")
+@MultipartConfig(
+	maxFileSize = 1024 * 1024 * 10, //10Mb
+	maxRequestSize = 1024 * 1024 * 10 * 3, //10Mb 최대 3개
+	fileSizeThreshold = 1024 * 1024 //1Mb : 파일 업로드 시 메모리에 저장되는 임시 파일 크기
+)
 public class BoardInsertServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
     
 	private BoardService boardService = new BoardServiceImp();
     
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-			//서비스에게 게시판 리스트를 가져오라고 시킴 : getCommunityList
-			ArrayList<CommunityVO> list = boardService.getCommunityList();
-			//화면에 게시판 리스트를 보냄
-			request.setAttribute("list", list);
-			request.getRequestDispatcher("/WEB-INF/views/board/insert.jsp").forward(request, response);
+		//서비스에게 게시판 리스트를 가져오라고 시킴 : getCommunityList
+		ArrayList<CommunityVO> list = boardService.getCommunityList();
+		//화면에 게시판 리스트를 보냄 
+		request.setAttribute("list", list);
+		request.getRequestDispatcher("/WEB-INF/views/board/insert.jsp").forward(request, response);
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -43,7 +50,11 @@ public class BoardInsertServlet extends HttpServlet {
 		//제목, 내용, 작성자, 게시판 번호를 이용하여 게시글 객체를 생성
 		BoardVO board = new BoardVO(title, content, writer, co_num);
 		//서비스에게 게시글 객체를 주면서 등록하라고 시킴
-		boolean res = boardService.insertBoard(board);
+		
+		//첨부파일들을 가져옴
+		ArrayList<Part> partList = (ArrayList<Part>) request.getParts();
+		
+		boolean res = boardService.insertBoard(board, partList);
 		//등록을 하면 화면에 msg로 게시글을 등록했습니다라고 전송
 		if(res) {
 			request.setAttribute("msg", "게시글을 등록했습니다.");
