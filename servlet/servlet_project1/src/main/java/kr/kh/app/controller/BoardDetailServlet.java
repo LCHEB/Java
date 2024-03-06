@@ -1,6 +1,7 @@
 package kr.kh.app.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -16,13 +17,12 @@ import kr.kh.app.service.BoardServiceImp;
 @WebServlet("/board/detail")
 public class BoardDetailServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-
-	private BoardService boardService = new BoardServiceImp();
-	
+    private BoardService boardService = new BoardServiceImp();  
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		//화면에서 보낸 게시글 번호를 가져옴
-		int num; 
+		int num;
+		
 		try {
 			num = Integer.parseInt(request.getParameter("num"));
 		}catch (Exception e) {
@@ -36,11 +36,12 @@ public class BoardDetailServlet extends HttpServlet {
 		request.setAttribute("board", board);
 		
 		//서비스에게 게시글 번호를 주면서 첨부파일을 가져오라고 시킴
-		FileVO file = boardService.getFile(num);
+		ArrayList<FileVO> fileList = boardService.getFile(num);
 		//첨부파일을 화면에 전송
-		request.setAttribute("file", file);
+		request.setAttribute("fileList", fileList);
 		//화면을 전송
 		request.getRequestDispatcher("/WEB-INF/views/board/detail.jsp").forward(request, response);
+		
 	}
 
 }
