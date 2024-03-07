@@ -31,6 +31,10 @@
 				<label for="view" class="form-label">조회수</label>
 				<input type="text" class="form-control" name="view" readonly value="${board.bo_view}">
 			</div>
+			<div class="mb-3 mt-3 clearfix">
+				<button type="button" data-state="1" class="btn btn-outline-success btn-up col-6 float-start">추천</button>
+		  		<button type="button" data-state="-1" class="btn btn-outline-success btn-down col-6 float-end">비추천</button>
+			</div>
 			<div class="mb-3 mt-3">
 				<label for="content" class="form-label">내용</label>
 				<textarea rows="10" class="form-control" name="content" readonly>${board.bo_content}</textarea>
@@ -54,5 +58,63 @@
 		<a href="<c:url value="/board/update?num=${board.bo_num}"/>" class="btn btn-outline-warning">게시글 수정</a>
 	</c:if>
 </div>
+<script src="//code.jquery.com/jquery-3.6.1.js"></script>
+<script type="text/javascript">
+	$(".btn-up,.btn-down").click(function() {
+		
+		if('${user.me_id}' == ''){
+			if(confirm("로그인이 필요한 서비스입니다. 로그인 페이지로 이동하겠습니까?")){
+				location.href = '<c:url value="/login"/>'
+			}else{
+				return;
+			}
+		}
+		let state = $(this).data('state');
+		let boNum = '${board.bo_num}';
+		$.ajax({
+			url : '<c:url value="/recommend"/>',
+			method : 'get',
+			async : true, //동기/비동기 선택, true : 비동기, false : 동기
+			data : {
+				"state" : state,
+				"boNum" : boNum
+			},
+			success : function(data) {
+				initBtn(".btn-up","btn-outline-success","btn-success")
+				initBtn(".btn-down","btn-outline-success","btn-success")
+				switch(data){
+				case "1":
+					alert("추천 되었습니다.");
+					initBtn(".btn-up","btn-success","btn-outline-success")
+					break;
+				case "0":
+					alert(`\${state == 1 ? '' : '비'}추천이 취소 되었습니다.`);
+					break;
+				case "-1":
+					alert("비추천 되었습니다.");
+					initBtn(".btn-down","btn-success","btn-outline-success")
+					break;
+				}
+			},
+			error : function(a, b, c) {
+				console.error("예외 발생");
+			}
+		});//ajex end
+	});//click end
+	
+	function initBtn(selector, addClassName, removeClassName) {
+		$(selector).addClass(addClassName);
+		$(selector).remove(removeClassName);
+	}
+	
+	<c:if test="${recommend != null}">
+		<c:if test="${recommend.re_state == 1}">
+			initBtn(".btn-up","btn-success","btn-outline-success")
+		</c:if>
+		<c:if test="${recommend.re_state == -1}">
+			initBtn(".btn-down","btn-success","btn-outline-success")
+		</c:if>
+	</c:if>
+</script>
 </body>
 </html>
