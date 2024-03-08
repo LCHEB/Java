@@ -58,7 +58,12 @@
 			  	<div class="mt-3 mb-3 comment-box">
 			  		<h3>댓글</h3>
 			  		<!-- 댓글 리스트를 보여주는 박스 -->
-			  		<div class="comment-List"></div>
+			  		<div class="comment-List">
+			  			<div class="input-group mb-3">
+			  				<div class="col-3">abc123</div>
+			  				<div class="col-9">댓글 내용</div>
+			  			</div>
+			  		</div>
 			  		<!-- 댓글 페이지네이션 박스 -->
 			  		<div class="comment-pagnation"></div>
 			  		<!-- 댓글 입력 박스 -->
@@ -177,6 +182,41 @@
 			}
 		})
 	});//click end
+</script>
+<!-- 댓글 조회 구현 -->
+<script type="text/javascript">
+	//댓글 리스트를 화면에 출력하는 함수
+	//댓글 현재페이지 정보
+	let cri = {
+		page : 1,
+		boNum : '${board.bo_num}'
+	}
+	function getCommentList(cri) {
+		$.ajax({
+			url : '<c:url value="/comment/list"/>',
+			method : "post",
+			data : cri,
+			success : function(data) {
+				console.log(data.list);
+				
+				let str = '';
+				for(comment of data.list){
+					str +=
+					`
+					<div class="input-group mb-3">
+		  				<div class="col-3">\${comment.cm_me_id}</div>
+		  				<div class="col-9">\${comment.cm_content}</div>
+		  			</div>
+					`;
+				}
+				$(".comment-list").html(str);
+			},
+			error : function(a, b, c) {
+				
+			}
+		});
+	}
+	getCommentList(cri);
 </script>
 </body>
 </html>
