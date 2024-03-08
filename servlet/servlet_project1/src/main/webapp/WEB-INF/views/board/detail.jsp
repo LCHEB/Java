@@ -151,7 +151,7 @@
 		}
 	</c:if>
 </script>
-<!-- 댓글 구현 -->
+<!-- 댓글 등록 구현 -->
 <script type="text/javascript">
 	//등록 버튼 클릭 이벤트를 등록
 	$(".btn-comment-insert").click(function() {
