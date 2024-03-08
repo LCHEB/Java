@@ -13,14 +13,15 @@ import org.json.JSONObject;
 
 import kr.kh.app.model.vo.CommentVO;
 import kr.kh.app.pagination.CommentCriteria;
-import kr.kh.app.pagination.Criteria;
+import kr.kh.app.pagination.PageMaker;
 import kr.kh.app.service.BoardService;
 import kr.kh.app.service.BoardServiceImp;
 
 @WebServlet("/comment/list")
 public class CommentListServlet extends HttpServlet {
+
 	private static final long serialVersionUID = 1L;
-	
+    
 	private BoardService boardService = new BoardServiceImp();
 	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -37,9 +38,14 @@ public class CommentListServlet extends HttpServlet {
 		//현재 페이지에 맞는 댓글을 가져오라고 시킴
 		ArrayList<CommentVO> list = boardService.getCommentList(cri);
 		
+		//전체 게시글 댓글 수
+		int totalCount = boardService.getTotalCountComment(cri);
+		//페이지네이션 생성
+		PageMaker pm = new PageMaker(5, cri, totalCount);
 		JSONObject jobj = new JSONObject();
 		
 		jobj.put("list", list);
+		jobj.put("pm", pm);
 		response.setContentType("application/json; charset=utf-8");
 		response.getWriter().print(jobj);
 	}

@@ -58,7 +58,7 @@
 			  	<div class="mt-3 mb-3 comment-box">
 			  		<h3>댓글</h3>
 			  		<!-- 댓글 리스트를 보여주는 박스 -->
-			  		<div class="comment-List">
+			  		<div class="comment-list">
 			  			<div class="input-group mb-3">
 			  				<div class="col-3">abc123</div>
 			  				<div class="col-9">댓글 내용</div>
@@ -217,6 +217,7 @@
 					`;
 				}
 				$(".comment-list").html(str);
+				console.log(data.pm);
 			},
 			error : function(a, b, c) {
 				
