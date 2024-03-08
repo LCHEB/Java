@@ -32,19 +32,8 @@ public class CommentInsertServlet extends HttpServlet {
 		MemberVO user = (MemberVO)request.getSession().getAttribute("user");
 		//댓글 등록하라고 시킴
 		CommentVO comment = new CommentVO(bo_num, content, user.getMe_id());
-
 		boolean res = boardService.insertComment(comment);
-		response.getWriter().write("123");
-		if(res) {
-			request.setAttribute("msg", "댓글을 등록했습니다.");	
-		}
-		//실패하면 실패했다고 알리고 게시글 상세로 이동
-		else {
-			request.setAttribute("msg", "댓글을 등록하지 못했습니다.");
-		}
-		request.setAttribute("url", "board/detail?num="+bo_num);
-		request.getRequestDispatcher("/WEB-INF/views/message.jsp").forward(request, response);
-
+		response.getWriter().write(res?"ok":"");
 	}
 
 }
