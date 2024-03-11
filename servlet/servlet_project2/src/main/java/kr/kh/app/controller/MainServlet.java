@@ -14,5 +14,15 @@ public class MainServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.getRequestDispatcher("/WEB-INF/views/home.jsp").forward(request, response);
 	}
-
+	
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		int num = 0;
+		try {
+			num = Integer.parseInt(request.getParameter("num"));
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+		System.out.println("화면에서 보낸 값 : " + num);
+		response.getWriter().write("abc");
+	}
 }

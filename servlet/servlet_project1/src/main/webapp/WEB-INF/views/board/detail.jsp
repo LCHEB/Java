@@ -67,15 +67,16 @@
 			  		<!-- 댓글 페이지네이션 박스 -->
 			  		<div class="comment-pagination">
 			  			<ul class="pagination justify-content-center">
-			  				
+			  			
 						</ul>
 			  		</div>
 			  		<!-- 댓글 입력 박스 -->
-			  		<div class="comment-input-box"></div>
+			  		<div class="comment-input-box">
 			  			<div class="input-group">
 						    <textarea class="form-control comment-content"></textarea>
 						    <button type="button" class="btn btn-outline-success btn-comment-insert">등록</button>
   						</div>
+			  		</div>
 			  	</div>
 			</div>
 		</c:when>
