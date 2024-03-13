@@ -50,13 +50,12 @@ public class HomeController {
 	@RequestMapping(value = "/login", method = RequestMethod.POST)
 	public String loginPost(Model model, LoginDTO loginDto) {
 		MemberVO user = memberService.login(loginDto);
-		System.out.println(user);
 		if(user != null) {
 			model.addAttribute("user", user);
-			model.addAttribute("msg", "로그인 했습니다.");
+			model.addAttribute("msg", "로그인 했습니다");
 			model.addAttribute("url", "/");
 		}else {
-			model.addAttribute("msg", "로그인을 실패했습니다.");
+			model.addAttribute("msg", "로그인 하지 못습니다");
 			model.addAttribute("url", "/login");
 		}
 		return "message";

@@ -11,6 +11,4 @@ public interface MemberDAO {
 
 	MemberVO selectMember(@Param("id")String me_id);
 
-	MemberVO login(LoginDTO loginDto);
-
 }
