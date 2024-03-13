@@ -13,7 +13,7 @@
 	src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
 <script
 	src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
-<title>스프링 - 메인</title>
+<title>스프링 - 로그인</title>
 </head>
 <body>
 <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
@@ -29,7 +29,18 @@
 	</ul>
 </nav>
 <div class="container">
-	<h1>메인입니다.</h1>
+	<form action="<c:url value="/login"/>" method="post">
+		<h1>로그인</h1>
+		<div class="form-group">
+	 		<label for="id">아이디</label>
+		 	<input type="text" class="form-control" id="id" name="id">
+		</div>
+		<div class="form-group">
+		 	<label for="pw">비번</label>
+		 	<input type="password" class="form-control" id="pw" name="pw">
+		</div>
+		<button class="btn btn-outline-success col-12">로그인</button>
+	</form>
 </div>
 </body>
 </html>
