@@ -11,5 +11,7 @@ public interface BoardService {
 
 	ArrayList<BoardVO> getBoardList(@Param("cri")Criteria cri);
 
+	int getBoardTotalCount(Criteria cri);
+
 
 }
