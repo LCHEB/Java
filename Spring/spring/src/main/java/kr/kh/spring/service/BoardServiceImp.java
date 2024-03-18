@@ -1,6 +1,5 @@
 package kr.kh.spring.service;
 
-import java.io.File;
 import java.util.ArrayList;
 
 import javax.annotation.Resource;
@@ -112,6 +111,75 @@ public class BoardServiceImp implements BoardService {
 	@Override
 	public ArrayList<FileVO> getFileList(int boNum) {
 		return boardDao.selectFileList(boNum);
+	}
+
+	@Override
+	public boolean deleteBoard(int boNum, MemberVO user) {
+		if(user == null) {
+			return false;
+		}
+		BoardVO board = boardDao.selectBoard(boNum);
+		if(board == null || !user.getMe_id().equals(board.getBo_me_id())) {
+			return false;
+		}
+		
+		ArrayList<FileVO> fileList = boardDao.selectFileList(boNum);
+		//첨부파일 리스트가 있으면 반복문으로 첨부파일을 삭제
+		if(fileList != null) {
+			for(FileVO file : fileList) {
+				deleteFile(file);
+			}
+		}
+		return boardDao.deleteBoard(boNum);
+	}
+
+	private void deleteFile(FileVO file) {
+		if(file == null) {
+			return;
+		}
+		//서버에서 삭제
+		UploadFileUtils.deleteFile(uploadPath,file.getFi_name());
+		//DB에서 삭제
+		boardDao.deleteFile(file.getFi_num());
+	}
+
+	@Override
+	public boolean updateBoard(BoardVO board, MemberVO user, MultipartFile[] file, int[] delNums) {
+		if( board == null ||
+			!checkString(board.getBo_title())||
+			!checkString(board.getBo_content())) {
+			return false;
+		}
+		if(user == null) {
+			return false;
+		}
+		BoardVO dbBoard = boardDao.selectBoard(board.getBo_num());
+		if( dbBoard == null ||
+			!dbBoard.getBo_me_id().equals(user.getMe_id())) {
+			return false;
+		}
+		//게시글 수정
+		boolean res = boardDao.updateBoard(board);
+		
+		if(!res) {
+			return false;
+		}
+		//첨부파일 수정
+		//새 첨부파일 추가
+		if(file != null) {
+			for(MultipartFile tmp : file) {
+				uploadFile(board.getBo_num(), tmp);
+			}
+		}
+		//삭제할 첨부파일 삭제
+		if(delNums == null) {
+			return true;
+		}
+		for(int tmp : delNums) {
+			FileVO fileVo = boardDao.selectFile(tmp);
+			deleteFile(fileVo);
+		}
+		return true;
 	}
 
 	

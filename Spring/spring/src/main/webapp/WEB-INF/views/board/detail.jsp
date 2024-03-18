@@ -51,6 +51,10 @@
 		<c:param name="search" value="${cri.search}"/>
 	</c:url>
 	<a href="${url}" class="btn btn-outline-dark">목록으로</a>
+	<c:if test="${board.bo_me_id == user.me_id}">
+		<a href="<c:url value="/board/delete?boNum=${board.bo_num}"/>" class="btn btn-outline-danger">삭제</a>
+		<a href="<c:url value="/board/update?boNum=${board.bo_num}"/>" class="btn btn-outline-warning">수정</a>
+	</c:if>
 </div>
 </body>
 </html>

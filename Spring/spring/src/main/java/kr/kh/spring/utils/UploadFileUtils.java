@@ -52,4 +52,14 @@ public class UploadFileUtils {
         String iconName = path + File.separator + fileName;
         return iconName.replace(File.separatorChar, '/');
     }
+
+	public static void deleteFile(String uploadPath, String fi_name) {
+		fi_name = fi_name.replace("/", File.separator);
+		File file = new File(uploadPath + fi_name);
+		//파일이 존재하면 파일을 ㅎ삭제
+		if(file.exists()) {
+			file.delete();
+		}
+		
+	}
 }
