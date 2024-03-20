@@ -34,10 +34,9 @@ public class CommentServiceImp implements CommentService {
 
 	@Override
 	public boolean insertComment(CommentVO comment, MemberVO user) {
-		if(user == null || user.getMe_id() == null) 
+		if( user == null || user.getMe_id() == null) 
 			return false;
-		
-		if( comment == null ||
+		if( comment == null || 
 			!checkString(comment.getCm_content()))
 			return false;
 		//댓글 작성자로 로그인한 회원 아이디를 넣어줌
@@ -46,39 +45,36 @@ public class CommentServiceImp implements CommentService {
 		return commentDao.insertComment(comment);
 	}
 	
-	public boolean checkString(String str) {
+	private boolean checkString(String str) {
 		return str != null && str.length() != 0;
 	}
 
 	@Override
 	public boolean deleteComment(CommentVO comment, MemberVO user) {
-		if(user == null) {
+		if(comment == null)
 			return false;
-		}
-		if(comment == null) {
+		if(user == null )
 			return false;
-		}
+		//작성자인지 확인
 		CommentVO dbComment = commentDao.selectComment(comment.getCm_num());
-		if(	dbComment == null ||
-			!dbComment.getCm_me_id().equals(user.getMe_id())) {
+		if( dbComment == null ||
+			!dbComment.getCm_me_id().equals(user.getMe_id()))
 			return false;
-		}
-		return commentDao.deleteComment(comment);
+		//댓글 삭제
+		return commentDao.deleteComment(comment.getCm_num());
 	}
 
 	@Override
 	public boolean updateComment(CommentVO comment, MemberVO user) {
-		if(user == null) {
+		if(comment == null || !checkString(comment.getCm_content()))
 			return false;
-		}
-		if(comment == null || !checkString(comment.getCm_content())) {
+		if(user == null )
 			return false;
-		}
+		//작성자인지 확인
 		CommentVO dbComment = commentDao.selectComment(comment.getCm_num());
-		if(	dbComment == null ||
-			!dbComment.getCm_me_id().equals(user.getMe_id())) {
+		if( dbComment == null ||
+			!dbComment.getCm_me_id().equals(user.getMe_id()))
 			return false;
-		}
 		return commentDao.updateComment(comment);
 	}
 }

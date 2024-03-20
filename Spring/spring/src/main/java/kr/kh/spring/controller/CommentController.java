@@ -41,7 +41,8 @@ public class CommentController {
 	}
 	
 	@PostMapping("/comment/insert")
-	public Map<String, Object> commentInsert(@RequestBody CommentVO comment, HttpSession session){
+	public Map<String, Object> commentInsert(@RequestBody CommentVO comment, 
+			HttpSession session){
 		Map<String, Object> map = new HashMap<String, Object>();
 		MemberVO user = (MemberVO)session.getAttribute("user");
 		boolean res = commentService.insertComment(comment, user);
@@ -50,21 +51,22 @@ public class CommentController {
 	}
 	
 	@PostMapping("/comment/delete")
-	public Map<String, Object> commentDelete(@RequestBody CommentVO comment, HttpSession session){
+	public Map<String, Object> commentDelete(@RequestBody CommentVO comment, 
+			HttpSession session){
 		Map<String, Object> map = new HashMap<String, Object>();
 		MemberVO user = (MemberVO)session.getAttribute("user");
-		boolean res = commentService.deleteComment(comment, user);
+		boolean res = commentService.deleteComment(comment,user);
 		map.put("result", res);
 		return map;
 	}
 	
 	@PostMapping("/comment/update")
-	public Map<String, Object> commentUpdate(@RequestBody CommentVO comment, HttpSession session){
+	public Map<String, Object> commentUpdate(@RequestBody CommentVO comment, 
+			HttpSession session){
 		Map<String, Object> map = new HashMap<String, Object>();
 		MemberVO user = (MemberVO)session.getAttribute("user");
-		boolean res = commentService.updateComment(comment, user);
+		boolean res = commentService.updateComment(comment,user);
 		map.put("result", res);
 		return map;
 	}
-
 }

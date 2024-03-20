@@ -16,7 +16,7 @@
 	      class="org.springframework.jdbc.datasource.DriverManagerDataSource">
 	    <property name="driverClassName" value="com.mysql.jdbc.Driver"></property>
 	    <property name="url"
-	              value="jdbc:mysql://localhost:3306/community?useSSL=false&amp;serverTimezone=Asia/Seoul">
+	              value="jdbc:mysql://localhost:3306/community2?useSSL=false&amp;serverTimezone=Asia/Seoul">
 	    </property>
 	    <property name="username" value="root"></property>
 	    <property name="password" value="root"></property>
@@ -35,8 +35,8 @@
 	<bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
 	    <property name="host" value="smtp.gmail.com" />
 	    <property name="port" value="587" />
-	    <property name="username" value="stajun@gmail.com" />
-	    <property name="password" value="wgwjwnxqamnjfsjl" />
+	    <property name="username" value="dhtkfkdh@gmail.com" />
+	    <property name="password" value="" />
 	    <property name="javaMailProperties">
 	        <props>
 	            <prop key="mail.transport.protocol">smtp</prop>
