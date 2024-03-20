@@ -25,26 +25,25 @@ public class HomeController {
 	@Autowired
 	private MemberService memberService;
 	
-	//value : url, method : 전송방식을 GET 또는 POST
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String home(Model model) {
 
 		return "/main/home";
 	}
-	//a태그시 method : get방식
+	
 	@RequestMapping(value = "/signup", method = RequestMethod.GET)
 	public String signup(Model model) {
-		
+
 		return "/member/signup";
 	}
 	
 	@RequestMapping(value = "/signup", method = RequestMethod.POST)
-	public String signupPost(Model model, MemberVO member) {
+	public String signupPost(Model model,MemberVO member) {
 		if(memberService.insertMember(member)) {
-			model.addAttribute("msg", "회원가입을 완료했습니다.");
+			model.addAttribute("msg", "회원가입을 완료했습니다");
 			model.addAttribute("url", "/");
-		}else{
-			model.addAttribute("msg", "회원가입을 실패했습니다.");
+		}else {
+			model.addAttribute("msg", "회원가입을 하지 못했습니다");
 			model.addAttribute("url", "/signup");
 		}
 		return "message";
@@ -52,13 +51,13 @@ public class HomeController {
 	
 	@RequestMapping(value = "/login", method = RequestMethod.GET)
 	public String login(Model model) {
-		
+
 		return "/member/login";
 	}
-	
 	@RequestMapping(value = "/login", method = RequestMethod.POST)
 	public String loginPost(Model model, LoginDTO loginDto) {
 		MemberVO user = memberService.login(loginDto);
+
 		if(user != null) {
 			model.addAttribute("user", user);
 			model.addAttribute("msg", "로그인 했습니다");
@@ -69,16 +68,15 @@ public class HomeController {
 		}
 		return "message";
 	}
-	
-	@GetMapping("/logout")
+	@GetMapping(value = "/logout")
 	public String logout(Model model, HttpSession session) {
 		//로그아웃 => 세션에 회원 정보를 제거
 		session.removeAttribute("user");
+		
 		model.addAttribute("msg", "로그아웃 했습니다.");
 		model.addAttribute("url", "/");
 		return "message";
 	}
-	
 	@ResponseBody
 	@GetMapping("/id/check/dup")
 	public Map<String, Object> idCheckDup(@RequestParam("id") String id){
@@ -93,7 +91,6 @@ public class HomeController {
 		
 		return "/member/findpw";
 	}
-	
 	@ResponseBody
 	@PostMapping("/find/pw")
 	public Map<String, Object> findPwPost(@RequestParam("id") String id){
@@ -101,5 +98,37 @@ public class HomeController {
 		boolean res = memberService.findPw(id);
 		map.put("result", res);
 		return map;
+	}
+	@GetMapping("/mypage")
+	public String mypage() {
+		
+		return "/member/mypage";
+	}
+	
+	@ResponseBody
+	@PostMapping("/check/pw")
+	public Map<String, Object> checkPw(@RequestParam("pw") String pw,
+			HttpSession session){
+		Map<String, Object> map = new HashMap<String, Object>();
+		MemberVO user = (MemberVO)session.getAttribute("user");
+		boolean res = memberService.pwCheck(pw, user);
+		map.put("result", res);
+		return map;
+	}
+	@PostMapping("/mypage")
+	public String mypagePost(Model model, MemberVO member, HttpSession session) {
+		System.out.println(member);
+		MemberVO user = (MemberVO)session.getAttribute("user");
+		boolean res = memberService.updateMember(member, user);
+		if(res) {
+			model.addAttribute("msg", "회원 정보를 수정했습니다.");
+			model.addAttribute("url", "/mypage");
+		}else {
+			model.addAttribute("msg", "회원 정보를 수정하지 못했습니다.");
+			model.addAttribute("url", "/mypage");
+		}
+		//세션에 회원 정보 수정
+		session.setAttribute("user", user);
+		return "message";
 	}
 }

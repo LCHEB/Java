@@ -6,10 +6,14 @@ import kr.kh.spring.model.vo.MemberVO;
 
 public interface MemberDAO {
 
+	int selectMemberCount();
+
+	MemberVO selectMember(@Param("id")String id);
+
 	boolean insertMember(MemberVO member);
 
-	MemberVO selectMember(@Param("id")String me_id);
-
 	void updatePassword(@Param("id")String id, @Param("pw")String encPw);
+
+	boolean updateMember(@Param("me")MemberVO member);
 
 }
