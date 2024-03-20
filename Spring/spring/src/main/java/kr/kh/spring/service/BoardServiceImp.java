@@ -184,12 +184,12 @@ public class BoardServiceImp implements BoardService {
 	}
 
 	@Override
-	public boolean recommend(RecommendVO recommend, MemberVO user) {
+	public int recommend(RecommendVO recommend, MemberVO user) {
 		if(recommend == null) {
-			return false;
+			return -2;
 		}
 		if(user == null) {
-			return false;
+			return -2;
 		}
 		//기존 추천 정보가 있는지 확인
 		recommend.setRe_me_id(user.getMe_id());
@@ -199,12 +199,23 @@ public class BoardServiceImp implements BoardService {
 			boardDao.insertRecommend(recommend);
 		}//있으면 수정
 		else {
+			//취소
 			if(recommend.getRe_state() == dbRecommend.getRe_state()) {
 				recommend.setRe_state(0);
 			}
 			boardDao.updateRecommend(recommend);
 		}
-		return true;
+		return recommend.getRe_state();
+
+	}
+
+	@Override
+	public int getUserRecommend(int num, MemberVO user) {
+		if(user == null) {
+			return -2;
+		}
+		RecommendVO recommend = boardDao.selectRecommend(new RecommendVO(num, user.getMe_id()));
+		return recommend == null ? -2 : recommend.getRe_state();
 	}
 
 	

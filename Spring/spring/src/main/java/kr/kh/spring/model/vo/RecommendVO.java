@@ -11,4 +11,9 @@ public class RecommendVO {
 	private String re_me_id;
 	private int re_state;
 	
+	public RecommendVO(int bo_num, String me_id) {
+		this.re_bo_num = bo_num;
+		this.re_me_id = me_id;
+	}
+	
 }
