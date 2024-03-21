@@ -7,7 +7,7 @@
 	<!-- jquery validtaion -->	
 	<script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.5/dist/jquery.validate.min.js"></script>
 	<script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.5/dist/additional-methods.min.js"></script>
-	<title>스프링 - 회원가입</title>
+	<title>스프링 - 마이페이지</title>
 	<style type="text/css">
 	.box-pw{
 		background: gray; position: fixed; top: 0; left : 0; right:0; bottom:0;
