@@ -1,5 +1,8 @@
 package kr.kh.spring3.controller;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -51,8 +54,9 @@ public class HomeController {
 	}
 	
 	@PostMapping("/login")
-	public String loginPost(Model model, MemberVO member) {
-		MemberVO user = memberService.login(member);
+	public String loginPost(Model model, MemberVO member, HttpSession session) {
+		MemberVO user = (MemberVO)session.getAttribute("user");
+		user = memberService.login(member);
 		if(user != null) {
 			model.addAttribute("user", user);
 			model.addAttribute("msg", "로그인 성공");

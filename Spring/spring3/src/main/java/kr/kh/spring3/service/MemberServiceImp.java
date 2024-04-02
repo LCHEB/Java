@@ -51,7 +51,15 @@ public class MemberServiceImp implements MemberService {
 
 	@Override
 	public MemberVO login(MemberVO member) {
-		// TODO Auto-generated method stub
-		return null;
+		if( member == null ||
+			!checkString(member.getMe_id()) ||
+			!checkString(member.getMe_pw())) {
+			return null;
+		}
+		MemberVO user = memberDao.selectMember(member.getMe_id());
+		if(user == null || !passwordEncoder.matches(member.getMe_pw(), user.getMe_pw())) {
+			return null;
+		}
+		return user;
 	}
 }
