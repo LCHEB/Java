@@ -5,5 +5,38 @@
 <mapper namespace="kr.kh.spring3.dao.BoardDAO">
 	<select id="selectBoardList" resultType="kr.kh.spring3.model.vo.BoardVO">
 		select * from board
+			where
+			<choose>
+				<when test='cri.type == "all"'>
+					bo_title like concat('%', #{cri.search}, '%') or
+					bo_me_id = #{cri.search}
+				</when>
+				<when test='cri.type == "title"'>
+					bo_title like concat('%', #{cri.search}, '%')
+				</when>
+				<otherwise>
+					bo_me_id = #{cri.search}
+				</otherwise>
+			</choose>
+			group by bo_num
+			order by bo_num desc
+			limit #{cri.pageStart}, #{cri.perPageNum}
+	</select>
+	
+	<select id="selectBoardTotalCount" resultType="int">
+			select count(*) from board
+			where
+			<choose>
+				<when test='cri.type == "all"'>
+					bo_title like concat('%', #{cri.search}, '%') or
+					bo_me_id = #{cri.search}
+				</when>
+				<when test='cri.type == "title"'>
+					bo_title like concat('%', #{cri.search}, '%')
+				</when>
+				<otherwise>
+					bo_me_id = #{cri.search}
+				</otherwise>
+			</choose>
 	</select>
 </mapper>

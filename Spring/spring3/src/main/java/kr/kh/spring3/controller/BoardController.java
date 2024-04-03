@@ -8,6 +8,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
 import kr.kh.spring3.model.vo.BoardVO;
+import kr.kh.spring3.pagination.Criteria;
+import kr.kh.spring3.pagination.PageMaker;
 import kr.kh.spring3.service.BoardService;
 import lombok.extern.log4j.Log4j;
 
@@ -19,10 +21,14 @@ public class BoardController {
 	BoardService boardService;
 	
 	@GetMapping("/post/list")
-	public String list(Model model) {
+	public String list(Model model, Criteria cri) {
+		cri.setPerPageNum(4);
 		model.addAttribute("title", "게시글 목록");
-		ArrayList<BoardVO> list = boardService.getBoardList();
+		ArrayList<BoardVO> list = boardService.getBoardList(cri);
+		int totalCount = boardService.getBoardTotalCount(cri);
+		PageMaker pm = new PageMaker(5, cri, totalCount);
 		model.addAttribute("list", list);
+		model.addAttribute("pm", pm);
 		return "/post/list";
 	}
 	
