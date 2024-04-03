@@ -50,15 +50,15 @@ public class HomeController {
 	
 	@GetMapping("/login")
 	public String login(Model model) {
+		model.addAttribute("title", "로그인");
 		return "/member/login";
 	}
 	
 	@PostMapping("/login")
-	public String loginPost(Model model, MemberVO member, HttpSession session) {
-		MemberVO user = (MemberVO)session.getAttribute("user");
-		user = memberService.login(member);
+	public String loginPost(Model model, MemberVO member) {
+		MemberVO user = memberService.login(member);
+		model.addAttribute("user", user);
 		if(user != null) {
-			model.addAttribute("user", user);
 			model.addAttribute("msg", "로그인 성공");
 			model.addAttribute("url", "/");
 		}else {
@@ -68,4 +68,11 @@ public class HomeController {
 		return "message";
 	}
 	
+	@GetMapping("/logout")
+	public String logoutPost(Model model, HttpSession session) {
+		session.removeAttribute("user");
+		model.addAttribute("msg", "로그아웃 했습니다.");
+		model.addAttribute("url", "/");
+		return "message";
+	}
 }

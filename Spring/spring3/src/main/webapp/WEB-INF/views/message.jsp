@@ -9,10 +9,8 @@
 </head>
 <body>
 <script type="text/javascript">
-<c:if test="${msg != null}">
-	alert('${msg}');
-</c:if>
-location.href = '<c:url value="${url}"/>'
+alert('${msg}');
+location.href = '<c:url value="${url}"/>';
 </script>
 </body>
 </html>
