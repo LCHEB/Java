@@ -22,7 +22,7 @@ public class BoardController {
 	
 	@GetMapping("/post/list")
 	public String list(Model model, Criteria cri) {
-		cri.setPerPageNum(4);
+		cri.setPerPageNum(5);
 		model.addAttribute("title", "게시글 목록");
 		ArrayList<BoardVO> list = boardService.getBoardList(cri);
 		int totalCount = boardService.getBoardTotalCount(cri);
