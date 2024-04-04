@@ -1,0 +1,11 @@
+ul{display: flex;}
+li{float: left; margin-right: 50px; margin-left: 50px;}
+.title{padding-left: 120px;}
+.menu-list{list-style: none;}
+th{padding: 10px;}
+td{text-align: center;}
+.title2{padding-left: 100px;}
+label{margin-left: 110px;}
+.input-date{width: 120px;}
+.input{margin-left: 110px;}
+.btn{margin-left: 150px;}

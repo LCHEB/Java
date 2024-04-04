@@ -3,19 +3,13 @@ import { useState } from 'react';
 import {BrowserRouter, Route, Link, Routes, useLocation, useNavigate} from 'react-router-dom';
 
 function App() {
-  //음악을 조회하고 등록하는 사이트를 구현하세요.
-  //음악 조회는 / 에서
-  //음악 등록은 /insert에서
-  //음악 등록시 음악번호(숫자), 제목, 가수, 장르를 입력하여 등록
-  //음악 번호는 중복되지 않게 입력해서 추가
-  //음악 조회에서 음악 삭제버튼을 클릭하면 삭제되도록 구현 : 음악번호를 이용하여
   let [list, setList] = useState([]);
   
-  function add(music){
-    setList([music, ...list]);
+  function add(movie){
+    setList([movie, ...list]);
   }
-  function remove(num){
-    let tmpList = list.filter(item=>item.num != num);
+  function remove(id){
+    let tmpList = list.filter(item=>item.id != id);
     setList(tmpList);
   }
   return(
@@ -31,41 +25,41 @@ function App() {
 function Nav(){
   return(
     <ul className="menu-list">
-      <li><Link to="/">음악 조회</Link></li>
-      <li><Link to="/add">음악 추가</Link></li>
+      <li><Link to="/">List</Link></li>
+      <li className='mebu-item'><Link to="/add">Add New Movie</Link></li>
     </ul>
   )
 }
 function List ({list, add, remove}){
   const location = useLocation();
 
-  let music = location.state;
-  if(music != null){
-    add(music);
+  let movie = location.state;
+  if(movie != null){
+    add(movie);
     location.state = null;
   }
   return(
     <div>
-      <h1>음악 리스트</h1>
-      <table>
+      <h1 className='title'>Movies</h1>
+      <table className='table'>
         <thead>
           <tr>
-            <th>번호</th>
-            <th>제목</th>
-            <th>가수</th>
-            <th>장르</th>
-            <th>기능</th>
+            <th>ID</th>
+            <th>Title</th>
+            <th>Genre</th>
+            <th>Release Date</th>
+            <th>Action</th>
           </tr>
         </thead>
         <tbody>
           {list.map((item)=>{
             return(
-              <tr key={item.num}>
-                <td>{item.num}</td>
+              <tr key={item.id}>
+                <td>{item.id}</td>
                 <td>{item.title}</td>
-                <td>{item.singer}</td>
                 <td>{item.genre}</td>
-                <td><button onClick={()=>remove(item.num)}>삭제</button></td>
+                <td>{item.release_date}</td>
+                <td><button onClick={()=>remove(item.id)}>삭제</button></td>
               </tr>
             )
           })}
@@ -76,40 +70,36 @@ function List ({list, add, remove}){
 }
 
 function Add (){
-  let [num , setNum] = useState(0);
+  let [id , setId] = useState(0);
   let [title, setTitle] = useState("");
-  let [singer, setSinger] = useState("");
   let [genre, setGenre] = useState("");
-
+  let [release_date, setRelease_Date] = useState("");
   const navigate = useNavigate();
   
-  function addMusic(){
+  function addMovie(){
     navigate("/", {
       state : {
-        num,
+        id,
         title,
-        singer,
-        genre
+        genre,
+        release_date
       }
     })
   }
   
   return(
     <div>
-      <h1>음악 추가</h1>
-      <label>음악 번호</label>
-      <input type="number" placeholder="음악번호" onChange={(e)=>setNum(e.target.value)}/>
+      <h1 className='title2'>Create Movie</h1>
+      <input type="number" className='input' placeholder="Input movie id" onChange={(e)=>setId(e.target.value)}/>
       <br/>
-      <label>제목</label>
-      <input type="text" placeholder="제목" onChange={(e)=>setTitle(e.target.value)}/>
+      <input type="text" className='input' placeholder="Input movie title" onChange={(e)=>setTitle(e.target.value)}/>
       <br/>
-      <label>가수</label>
-      <input type="text" placeholder="가수" onChange={(e)=>setSinger(e.target.value)}/>
+      <input type="text" className='input' placeholder="Input movie genre" onChange={(e)=>setGenre(e.target.value)}/>
       <br/>
-      <label>장르</label>
-      <input type='text' placeholder="장르" onChange={(e)=>setGenre(e.target.value)}/>
+      <label>출시일:</label>
+      <input type='date' className='input-date' placeholder="연도-월-일" onChange={(e)=>setRelease_Date(e.target.value)}/>
       <br/>
-      <button onClick={addMusic}>음악 추가</button>
+      <button className='btn' onClick={addMovie}>Add Movie</button>
     </div>
   );
 }
