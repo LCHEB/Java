@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>회원가입</title>
+<title>게시글 등록</title>
 </head>
 <body>
 <div class="container">
@@ -28,8 +28,9 @@
       <textarea  class="form-control" id="content" name="bo_content"></textarea>
     </div>
     <div class="form-group">
-		<label>파일</label>
-		<input type="file" class="form-control" name="files"/>
+		<input type="file" class="form-control" name="files">
+		<input type="file" class="form-control" name="files">
+		<input type="file" class="form-control" name="files">
 	</div>
     <button type="submit" class="btn btn-primary col-12">작성</button>
   </form>
